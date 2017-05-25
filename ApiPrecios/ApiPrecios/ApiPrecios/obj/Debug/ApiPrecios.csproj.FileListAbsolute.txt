@@ -87,4 +87,10 @@ C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Microsoft
 C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\System.Web.Http.Owin.xml
 C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\obj\Debug\ApiPrecios.dll
 C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\obj\Debug\ApiPrecios.pdb
-C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\obj\Debug\ApiPrecios.csprojResolveAssemblyReference.cache
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.dll
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.Web.Common.dll
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.Web.Mvc.dll
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\WebActivatorEx.dll
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.xml
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.Web.Common.xml
+C:\Users\Tomas\Desktop\Desarrollo\ApiPrecios\ApiPrecios\ApiPrecios\bin\Ninject.Web.Mvc.xml

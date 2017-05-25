@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApiPrecios.PreciosClaros
 {
-    interface PreciosClarosApi
+    public interface IPreciosClarosApi
     {
         List<Sucursal> ObtenerSucursalesPorZona(double lat, double lng, int limite);
     }

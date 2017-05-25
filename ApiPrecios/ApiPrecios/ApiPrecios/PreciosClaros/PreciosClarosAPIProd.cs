@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace ApiPrecios.PreciosClaros
 {
-    public class PreciosClarosAPIProd : PreciosClarosApi
+    public class PreciosClarosAPIProd : IPreciosClarosApi
     {
         internal string APIURL = "https://d735s5r2zljbo.cloudfront.net/prod/";
         public List<Sucursal> ObtenerSucursalesPorZona(double lat, double lng, int limite)
