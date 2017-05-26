@@ -18,7 +18,12 @@ namespace ApiPrecios.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-            var cadena = preciosClaros.ObtenerSucursalesPorZona(-34.666227,-58.589724,10);
+            //var cadena = preciosClaros.ObtenerSucursalesPorZona(-34.666227,-58.589724,10);
+            //var cadena = preciosClaros.ObtenerSucursales(20);
+            //var cadena = preciosClaros.ObtenerProductosPorNombreyZona("coca", -34.666227, -58.589724, 10);
+            //var cadena = preciosClaros.ObtenerProductosPorId(7790040100336, -34.666227, -58.589724, 10);
+            //var cadena = preciosClaros.ProductosPorZona(-34.666227, -58.589724, 10);
+            var cadena = preciosClaros.ObtenerCategorias();
             return View("Index", cadena);
         }
     }

@@ -1,4 +1,4 @@
-﻿@model List<ApiPrecios.PreciosClaros.Entidades.Sucursal>
+﻿@model List<ApiPrecios.PreciosClaros.Entidades.Categoria>
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
@@ -8,11 +8,11 @@
     <div class="col-md-4">
         <h2></h2>
         @{ 
-            foreach(var l in @Model)
+            foreach(var l in Model)
             {
-                <span>@l.banderaDescripcion</span>
-                <span>@l.sucursalNombre</span>
-                <span>@l.comercioRazonSocial</span>
+                <span>@l.nombre</span>
+                <span>@l.padres</span>
+                <span></span>
             }
         }
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>

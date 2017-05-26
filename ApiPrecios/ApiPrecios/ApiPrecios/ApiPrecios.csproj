@@ -259,6 +259,9 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="PreciosClaros\Entidades\Categoria.cs" />
+    <Compile Include="PreciosClaros\Entidades\Padre.cs" />
+    <Compile Include="PreciosClaros\Entidades\Producto.cs" />
     <Compile Include="PreciosClaros\Entidades\Sucursal.cs" />
     <Compile Include="PreciosClaros\IPreciosClarosApi.cs" />
     <Compile Include="PreciosClaros\PreciosClarosAPIProd.cs" />
