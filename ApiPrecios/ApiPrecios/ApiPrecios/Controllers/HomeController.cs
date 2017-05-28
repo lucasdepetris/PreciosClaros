@@ -23,7 +23,8 @@ namespace ApiPrecios.Controllers
             //var cadena = preciosClaros.ObtenerProductosPorNombreyZona("coca", -34.666227, -58.589724, 10);
             //var cadena = preciosClaros.ObtenerProductosPorId(7790040100336, -34.666227, -58.589724, 10);
             //var cadena = preciosClaros.ProductosPorZona(-34.666227, -58.589724, 10);
-            var cadena = preciosClaros.ObtenerCategorias();
+            //var cadena = preciosClaros.ObtenerCategorias();
+            var cadena = preciosClaros.ObtenerProductosPorCategoria("060919001", -34.666227, -58.589724, 10);
             return View("Index", cadena);
         }
     }

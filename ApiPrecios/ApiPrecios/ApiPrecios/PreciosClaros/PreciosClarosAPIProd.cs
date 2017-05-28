@@ -43,6 +43,12 @@ namespace ApiPrecios.PreciosClaros
             var json = getHttpRequest("productos?lat="+lat+"&lng=" +lng+ "&limit=" + limite);
             return JsonConvert.DeserializeObject<List<Producto>>(json.SelectToken("productos").ToString());
         }
+        //OBTENER PRODUCTOS POR CATEGORIA
+        public List<Producto> ObtenerProductosPorCategoria(String id,double lat, double lng, int limite)
+        {
+            var json = getHttpRequest("productos?id_categoria="+id+"&lat=" + lat + "&lng=" + lng + "&limit=" + limite);
+            return JsonConvert.DeserializeObject<List<Producto>>(json.SelectToken("productos").ToString());
+        }
         //OBTENER TODAS LAS CATEGORIAS
         public List<Categoria> ObtenerCategorias()
         {
