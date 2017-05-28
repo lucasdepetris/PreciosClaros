@@ -11,7 +11,7 @@ namespace ApiPrecios.PreciosClaros.Entidades
         public int productos { get; set; }
         public string id { get; set; }
         public string nombre { get; set; }
-        public List<object> padres { get; set; }
+        public List<String> padres { get; set; }
         public bool? categoriaRequerida { get; set; }
     }
 }

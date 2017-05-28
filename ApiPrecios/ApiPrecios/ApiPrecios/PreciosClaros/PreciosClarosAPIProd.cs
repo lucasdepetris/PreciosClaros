@@ -32,7 +32,7 @@ namespace ApiPrecios.PreciosClaros
             return JsonConvert.DeserializeObject<List<Producto>>(json.SelectToken("productos").ToString());
         }
         //OBTENER PRODUCTOS POR ID
-        public Producto ObtenerProductosPorId(long id, double lat, double lng, int limite)
+        public Producto ObtenerProductosPorId(String id, double lat, double lng, int limite)
         {
             var json = getHttpRequest("producto?id_producto=" + id + "&lat=" + lat + "&lng=" + lng + "&limit=" + limite);
             return JsonConvert.DeserializeObject<Producto>(json.SelectToken("producto").ToString());

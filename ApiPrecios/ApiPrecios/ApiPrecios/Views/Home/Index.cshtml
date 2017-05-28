@@ -8,10 +8,14 @@
     <div class="col-md-4">
         <h2></h2>
         @{ 
-            foreach(var l in Model)
+            foreach (var l in Model)
             {
-                <span>@l.nombre</span>
-                <span>@l.padres</span>
+                
+                foreach (var p in @l.padres)
+                {
+                    <span>@p</span>
+                }
+                
                 <span></span>
             }
         }
