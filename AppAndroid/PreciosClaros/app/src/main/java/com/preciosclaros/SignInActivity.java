@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.webkit.HttpAuthHandler;
 import android.widget.Button;
@@ -204,7 +205,7 @@ public class SignInActivity extends AppCompatActivity implements
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             Toast.makeText(this,"Perfil",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(SignInActivity.this, AccountActivity.class);
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(this,"No se pudo iniciar sesion",Toast.LENGTH_SHORT).show();
