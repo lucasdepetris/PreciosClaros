@@ -138,6 +138,7 @@ public class SignInActivity extends AppCompatActivity implements
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
+            Toast.makeText(this,"result not succes",Toast.LENGTH_SHORT).show();
             updateUI(false);
         }
     }
@@ -203,13 +204,11 @@ public class SignInActivity extends AppCompatActivity implements
     }
     private void updateUI(boolean signedIn) {
         if (signedIn) {
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            Toast.makeText(this,"Perfil",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Inicio de sesion correcto",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(this,"No se pudo iniciar sesion",Toast.LENGTH_SHORT).show();
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
         }
     }
     @Override
@@ -230,6 +229,10 @@ public class SignInActivity extends AppCompatActivity implements
                 break;*/
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        // your code.
     }
 }
 

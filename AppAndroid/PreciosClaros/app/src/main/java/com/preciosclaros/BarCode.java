@@ -35,7 +35,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         buttonScan.setOnClickListener(this);
     }
     //Getting the scan results
-    @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {

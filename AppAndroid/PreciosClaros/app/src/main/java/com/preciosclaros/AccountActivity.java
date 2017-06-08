@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.widget.TextView;
 
 
@@ -19,7 +18,6 @@ public class AccountActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
         sharedPreferences = getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
         if (sharedPreferences.contains("Name"))
         {
