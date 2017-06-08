@@ -5,114 +5,139 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 using System.Web.Http.Description;
 using ApiPrecios.Models.Entidades;
+using ApiPrecios.Repositorios.Abstracciones;
+using System.Web.Mvc;
+using ApiPrecios.Services.Abstracciones;
 
 namespace ApiPrecios.Controllers
 {
-    public class UsuariosController : ApiController
+    public class UsuariosController : Controller
     {
-        private DBPrecios db = new DBPrecios();
 
-        // GET: api/Usuarios
-        public IQueryable<Usuario> GetUsuarios()
+        //Esto es un controller de ejemplo, la idea en si es que veas como usar un repositorio
+        // Lo ideal, seria que no llame al repo de una el controller, si no que pase por un service, ej UsuariosService
+        private readonly IUsuariosServices UsuariosServices;
+        public UsuariosController(IUsuariosServices service)
         {
-            return db.Usuarios;
+            UsuariosServices = service;
         }
 
-        // GET: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult GetUsuario(int id)
+        [HttpPost]
+        public ContentResult ObtenerUsuarioPorIdGoogle(string idGoogle)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+            var user = UsuariosServices.ObtenerUsuarioPorIdGoogle(idGoogle);
 
-            return Ok(usuario);
+            return Content(getResponse(user), "application/json");
+
+        }
+        private string getResponse(object result)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(result);
         }
 
-        // PUT: api/Usuarios/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsuario(int id, Usuario usuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Usuarios
+        //public IQueryable<Usuario> GetUsuarios()
+        //{
+        //    return db.Usuarios;
+        //}
 
-            if (id != usuario.id)
-            {
-                return BadRequest();
-            }
+        //// GET: api/Usuarios/5
+        //[ResponseType(typeof(Usuario))]
+        //public IHttpActionResult GetUsuario(int id)
+        //{
+        //    Usuario usuario = db.Usuarios.Find(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Entry(usuario).State = EntityState.Modified;
+        //    return Ok(usuario);
+        //}
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsuarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //// PUT: api/Usuarios/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutUsuario(int id, Usuario usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    if (id != usuario.id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-        // POST: api/Usuarios
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult PostUsuario(Usuario usuario)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    db.Entry(usuario).State = EntityState.Modified;
 
-            db.Usuarios.Add(usuario);
-            db.SaveChanges();
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UsuarioExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return CreatedAtRoute("DefaultApi", new { id = usuario.id }, usuario);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
+        //[HttpPost]
+        //public Usuario ObtenerUsuarios()
+        //{
+        //    return db.Usuarios.First();
+        //}
+        //// POST: api/Usuarios
+        //[ResponseType(typeof(Usuario))]
+        //public IHttpActionResult PostUsuario(Usuario usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-        // DELETE: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        public IHttpActionResult DeleteUsuario(int id)
-        {
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+        //    db.Usuarios.Add(usuario);
+        //    db.SaveChanges();
 
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
+        //    return CreatedAtRoute("DefaultApi", new { id = usuario.id }, usuario);
+        //}
 
-            return Ok(usuario);
-        }
+        //// DELETE: api/Usuarios/5
+        //[ResponseType(typeof(Usuario))]
+        //public IHttpActionResult DeleteUsuario(int id)
+        //{
+        //    Usuario usuario = db.Usuarios.Find(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //    db.Usuarios.Remove(usuario);
+        //    db.SaveChanges();
 
-        private bool UsuarioExists(int id)
-        {
-            return db.Usuarios.Count(e => e.id == id) > 0;
-        }
+        //    return Ok(usuario);
+        //}
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
+
+        //private bool UsuarioExists(int id)
+        //{
+        //    return db.Usuarios.Count(e => e.id == id) > 0;
+        //}
     }
 }

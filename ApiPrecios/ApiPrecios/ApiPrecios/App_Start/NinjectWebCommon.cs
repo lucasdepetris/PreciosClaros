@@ -11,6 +11,10 @@ namespace ApiPrecios.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using PreciosClaros;
+    using Repositorios.Abstracciones;
+    using Repositorios;
+    using Services.Abstracciones;
+    using Services;
 
     public static class NinjectWebCommon 
     {
@@ -63,6 +67,8 @@ namespace ApiPrecios.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IPreciosClarosApi>().To<PreciosClarosAPIProd>();
+            kernel.Bind<IUsuariosRepositorio>().To<UsuariosRepositorio>();
+            kernel.Bind<IUsuariosServices>().To<UsuariosServices>();
         }        
     }
 }
