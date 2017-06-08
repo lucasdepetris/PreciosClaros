@@ -182,6 +182,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
+            ft.addToBackStack(null);
             ft.commit();
         }
 

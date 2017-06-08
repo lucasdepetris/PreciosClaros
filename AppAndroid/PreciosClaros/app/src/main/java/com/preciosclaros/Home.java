@@ -37,6 +37,7 @@ public class Home extends Fragment {
                 if (fragment != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, fragment);
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
             }
@@ -49,6 +50,7 @@ public class Home extends Fragment {
                 if (fragment != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, fragment);
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
             }
@@ -61,6 +63,7 @@ public class Home extends Fragment {
                 if (fragment != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, fragment);
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
             }
