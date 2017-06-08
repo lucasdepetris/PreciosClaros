@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,11 +62,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }*/
     Button Close;
     Button Create;
+    LayoutInflater layoutInflater;
+    View popupView;
+    PopupWindow popupWindow;
+
     private PopupWindow pw;
     private GoogleApiClient mGoogleApiClient;
     private static final String PREFER_NAME = "Reg";
     private SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +91,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
          displaySelectedScreen(R.id.nav_home);
+
     }
     boolean doubleBackToExitPressedOnce = false;
     @Override
@@ -90,7 +100,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (doubleBackToExitPressedOnce) {
+           /* if (doubleBackToExitPressedOnce) {
                 moveTaskToBack(true);
             }
 
@@ -106,7 +116,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 }
             }, 2000);
             Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
-            startActivity(intent);
+            startActivity(intent);*/
+           super.onBackPressed();
         }
     }
 
@@ -154,13 +165,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_menu1:
                 fragment = new Menu1();
                 /*Toast.makeText(this,"hola soy menu 1",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this,AccountActivity.class);
+                Intent intent = new Intent(HomeActivity.this,BarCode.class);
                 startActivity(intent);*/
                 break;
             case R.id.nav_menu2:
-                fragment = new Menu2();
-               /* intent = new Intent(HomeActivity.this,BarCode.class);
-                startActivity(intent);*/
+
+               Intent intent = new Intent(HomeActivity.this,BarCode.class);
+                startActivity(intent);
                 break;
             case R.id.nav_menu3:
                 fragment = new Menu3();
