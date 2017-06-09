@@ -1,4 +1,5 @@
 ﻿using ApiPrecios.Models.Entidades;
+using ApiPrecios.Repositorios.Abstracciones;
 using ApiPrecios.Services.Abstracciones;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,25 @@ namespace ApiPrecios.Controllers
 {
     public class ListasController : Controller
     {
+        private readonly IListasServices listaServices;
+        private readonly IListasRepositorio ListaRepo;
+        public ListasController(IListasServices service, IListasRepositorio repositorio)
+        {
+            listaServices = service;
+            ListaRepo = repositorio;
+        }
         private DBPrecios db = new DBPrecios();
         [HttpPost]
-        public Lista  CrearLista()
-        { 
-            var lista = CrearLista();
+        public Lista  CrearLista(String idGoogle)
+        {
+            var lista = listaServices.CrearLista(idGoogle);
             return lista;
 
+        }
+        [HttpPost]
+        public Boolean AgregarUsuarioLista(String idGoogle, int idLista)
+        {
+           return listaServices.AgregarUsuarioLista(idGoogle, idLista);
         }
         private string getResponse(object result)
         {

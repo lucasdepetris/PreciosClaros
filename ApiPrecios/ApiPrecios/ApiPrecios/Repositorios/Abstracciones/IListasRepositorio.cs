@@ -9,6 +9,7 @@ namespace ApiPrecios.Repositorios.Abstracciones
 {
     public interface IListasRepositorio
     {
-        Lista CrearLista();
+        Lista CrearLista(String idGoogle);
+        Boolean AgregarUsuarioLista(String idGoogle , int idLista);
     }
 }
