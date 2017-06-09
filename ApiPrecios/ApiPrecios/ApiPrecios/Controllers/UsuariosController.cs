@@ -19,9 +19,11 @@ namespace ApiPrecios.Controllers
         //Esto es un controller de ejemplo, la idea en si es que veas como usar un repositorio
         // Lo ideal, seria que no llame al repo de una el controller, si no que pase por un service, ej UsuariosService
         private readonly IUsuariosServices UsuariosServices;
-        public UsuariosController(IUsuariosServices service)
+        private readonly IUsuariosRepositorio usuariosRepo;
+        public UsuariosController(IUsuariosServices service, IUsuariosRepositorio repositorio)
         {
             UsuariosServices = service;
+            usuariosRepo = repositorio;
         }
 
         [HttpPost]
@@ -31,6 +33,16 @@ namespace ApiPrecios.Controllers
 
             return Content(getResponse(user), "application/json");
 
+        }
+        [HttpPost]
+        public Usuario CrearUsuarioSiNoExiste(Usuario user)
+        {
+           
+           if(! usuariosRepo.ExisteUsuario(user.idGogle))
+            {
+               return  usuariosRepo.CrearUsuario(user);
+            }
+           return usuariosRepo.ObtenerUsuarioPorIdGoogle(user.idGogle);
         }
         private string getResponse(object result)
         {

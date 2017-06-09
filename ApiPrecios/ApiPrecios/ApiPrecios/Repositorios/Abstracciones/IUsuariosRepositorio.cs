@@ -10,7 +10,7 @@ namespace ApiPrecios.Repositorios.Abstracciones
     public interface IUsuariosRepositorio
     {
         Usuario ObtenerUsuarioPorIdGoogle(string idGoogle);
-        Usuario CrearUsuario(string idGoogle);
+        Usuario CrearUsuario(Usuario user);
         bool ExisteUsuario(string idGoogle);
     }
 }

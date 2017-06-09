@@ -1,21 +1,28 @@
-﻿using System;
+﻿using ApiPrecios.Models.Entidades;
+using ApiPrecios.Services.Abstracciones;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
-using ApiPrecios.Models.Entidades;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ApiPrecios.Controllers
 {
-    public class ListasController : ApiController
+    public class ListasController : Controller
     {
         private DBPrecios db = new DBPrecios();
+        [HttpPost]
+        public Lista  CrearLista()
+        { 
+            var lista = CrearLista();
+            return lista;
 
+        }
+        private string getResponse(object result)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(result);
+        }
+        /*
         // GET: api/Listas
         public IQueryable<Lista> GetListas()
         {
@@ -113,6 +120,6 @@ namespace ApiPrecios.Controllers
         private bool ListaExists(int id)
         {
             return db.Listas.Count(e => e.id == id) > 0;
-        }
+        }*/
     }
 }

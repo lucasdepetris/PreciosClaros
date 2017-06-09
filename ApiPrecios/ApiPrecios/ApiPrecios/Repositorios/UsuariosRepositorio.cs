@@ -18,16 +18,13 @@ namespace ApiPrecios.Repositorios
         {
             return db.Usuarios.Where(u => u.idGogle == idGoogle).FirstOrDefault();
         }
-        public Usuario CrearUsuario(string idGoogle) // esto en realidad deberia recibir como parametro un objeto usuario, lo hice asi para mostrar nomas
+        public Usuario CrearUsuario(Usuario user) // esto en realidad deberia recibir como parametro un objeto usuario, lo hice asi para mostrar nomas
         {
-            var usuario = new Usuario
-            {
-                idGogle = idGoogle
-            };
-            db.Usuarios.Add(usuario);
+            user.fechaRegistro = DateTime.Now;
+            db.Usuarios.Add(user);
             db.SaveChanges();
 
-            return usuario;
+            return user;
         }
         public bool ExisteUsuario(string idGoogle)
         {
