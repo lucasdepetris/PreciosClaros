@@ -16,7 +16,7 @@ namespace ApiPrecios.Controllers
         }
 
         [HttpGet]
-        public ContentResult ObtenerUsuarioPorIdGoogle(string codigo, double lat, double lng)
+        public ContentResult ObtenerProductoPorId(string codigo, double lat, double lng)
         {
             var prod = productosServices.ObtenerProductoPorCodigo(codigo, lat, lng);
 
