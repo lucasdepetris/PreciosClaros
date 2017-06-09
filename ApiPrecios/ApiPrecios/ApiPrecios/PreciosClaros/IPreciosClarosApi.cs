@@ -13,6 +13,7 @@ namespace ApiPrecios.PreciosClaros
         List<Sucursal> ObtenerSucursales(int limite);
         List<Producto> ObtenerProductosPorNombreyZona(String nombre, double lat, double lng, int limite);
         Producto ObtenerProductosPorId(String id, double lat, double lng, int limite);
+        ProductoModel ObtenerProductosModelPorId(String id, double lat, double lng, int limite);
         List<Producto> ObtenerProductosPorCategoria(String id, double lat, double lng, int limite);
         List<Producto> ProductosPorZona(double lat, double lng, int limite);
         List<Categoria> ObtenerCategorias();

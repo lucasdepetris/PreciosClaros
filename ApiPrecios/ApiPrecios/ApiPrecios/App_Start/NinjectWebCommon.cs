@@ -69,6 +69,8 @@ namespace ApiPrecios.App_Start
             kernel.Bind<IPreciosClarosApi>().To<PreciosClarosAPIProd>();
             kernel.Bind<IUsuariosRepositorio>().To<UsuariosRepositorio>();
             kernel.Bind<IUsuariosServices>().To<UsuariosServices>();
+            kernel.Bind<IProductosServices>().To<ProductosServices>();
+            kernel.Bind<IProductosRepositorio>().To<ProductosRepositorio>();
         }        
     }
 }
