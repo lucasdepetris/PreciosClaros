@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-         displaySelectedScreen(R.id.nav_home);
+        displaySelectedScreen(R.id.nav_home);
 
     }
     boolean doubleBackToExitPressedOnce = false;
