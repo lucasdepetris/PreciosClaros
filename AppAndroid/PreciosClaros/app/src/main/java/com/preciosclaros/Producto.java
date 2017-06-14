@@ -5,16 +5,16 @@ package com.preciosclaros;
  */
 
 public class Producto {
-    private double presentacion;
+    private String presentacion;
     private String nombre;
-    private Integer id;
+    private String id;
     private String marca;
 
-    public double getPresentacion() {
+    public String getPresentacion() {
         return presentacion;
     }
 
-    public void setPresentacion(double presentacion) {
+    public void setPresentacion(String presentacion) {
         this.presentacion = presentacion;
     }
 
@@ -26,11 +26,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
