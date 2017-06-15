@@ -7,11 +7,23 @@ import java.util.ArrayList;
  */
 
 public class Response {
+
+    public int getStatus() {
+
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    private int status;
     Producto producto;
-    ArrayList<Sucursale> productos = new ArrayList<Sucursale>();
-    public Response(Producto producto, ArrayList<Sucursale> productos) {
+    ArrayList<Sucursales> sucursales = new ArrayList<Sucursales>();
+    public Response(Producto producto, ArrayList<Sucursales> sucursales , int status) {
         this.producto = producto;
-        this.productos = productos;
+        this.sucursales = sucursales;
+        this.status = status;
     }
 
     public Producto getProducto() {
@@ -23,12 +35,12 @@ public class Response {
         this.producto = producto;
     }
 
-    public ArrayList<Sucursale> getProductos() {
-        return productos;
+    public ArrayList<Sucursales> getProductos() {
+        return sucursales;
     }
 
-    public void setProductos(ArrayList<Sucursale> productos) {
-        this.productos = productos;
+    public void setProductos(ArrayList<Sucursales> productos) {
+        this.sucursales = productos;
     }
 
 }

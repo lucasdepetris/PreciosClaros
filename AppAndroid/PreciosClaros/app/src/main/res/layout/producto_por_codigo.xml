@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:minWidth="120dp"
+            android:id="@+id/MejorImgProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_dialog_email"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:text="Gaseosa Coca Cola x 1.5 Lt"
+            android:layout_toRightOf="@id/MejorImgProducto"
+            android:id="@+id/MejorNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="Mejor Precio:"
+            android:layout_toRightOf="@id/MejorImgProducto"
+            android:layout_below="@id/MejorNombre"
+            android:id="@+id/titlePrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_below="@id/titlePrecio"
+            android:text="$35,00"
+            android:layout_toRightOf="@id/MejorImgProducto"
+            android:id="@+id/MejorPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_below="@id/MejorPrecio"
+            android:layout_alignParentRight="true"
+            android:id="@+id/agregarMejorPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/listaProductoSucursales"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+</LinearLayout>

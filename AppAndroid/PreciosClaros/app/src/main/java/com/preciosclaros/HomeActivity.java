@@ -169,9 +169,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);*/
                 break;
             case R.id.nav_menu2:
-
-               Intent intent = new Intent(HomeActivity.this,BarCode.class);
-                startActivity(intent);
+                fragment = new Menu2();
+                /*Intent intent = new Intent(HomeActivity.this,BarCode.class);
+                startActivity(intent);*/
                 break;
             case R.id.nav_menu3:
                 fragment = new Menu3();

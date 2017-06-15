@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/distancia"
+        android:text="0.30 kilometros"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_below="@id/distancia"
+        android:id="@+id/imgComercio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_below="@id/distancia"
+        android:layout_toRightOf="@id/imgComercio"
+        android:text="Hipermercado Carrefour"
+        android:id="@+id/nombreComercio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="Martin rodriguez 1520"
+        android:layout_toRightOf="@id/imgComercio"
+        android:layout_below="@id/nombreComercio"
+        android:id="@+id/direccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="Ituzaingo"
+        android:layout_below="@id/direccion"
+        android:layout_toRightOf="@id/imgComercio"
+        android:id="@+id/localidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:text="$100"
+        android:layout_below="@id/localidad"
+        android:layout_toRightOf="@id/imgComercio"
+        android:id="@+id/precio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_below="@id/direccion"
+        android:id="@+id/agregar"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
