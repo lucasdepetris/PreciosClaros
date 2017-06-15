@@ -13,8 +13,8 @@ import retrofit2.http.Query;
 
 public interface ApiPrecios {
     @Headers("Content-Type: application/json")
-    @GET("Productos/ObtenerProductoPorId")
-    Call<Response> getProducto(@Query ("codigo") String id ,@Query("lat") double latitud,@Query("lng") double longitud);
+    @GET("producto")
+    Call<Response> getProducto(@Query ("id_producto") String id ,@Query("lat") double latitud,@Query("lng") double longitud);
     @GET("items/{itemId}")
     Call<Article> getArticle(@Path("itemId") String id );
 }

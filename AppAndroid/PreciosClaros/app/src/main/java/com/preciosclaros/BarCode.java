@@ -38,6 +38,8 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     //qr code scanner object
     private IntentIntegrator qrScan;
     public  String id ;
+    ApiPrecios service;
+    public Call<com.preciosclaros.Response> requestCatalog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +52,20 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create( new Gson() ))
-                .baseUrl("http://192.168.0.8:59395/")
+                .baseUrl("https://d735s5r2zljbo.cloudfront.net/prod/")
                 .build();
-        ApiPrecios service = retrofit.create(ApiPrecios.class);
-        id ="7790040100336";
+         service = retrofit.create(ApiPrecios.class);
+        //View objects
+        buttonScan = (Button) findViewById(R.id.buttonScan);
+        textViewName = (TextView) findViewById(R.id.textViewName);
+        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
+        //intializing scan object
+        qrScan = new IntentIntegrator(this);
+        //attaching onclick listener
+        buttonScan.setOnClickListener(this);
+       /* id ="7790040100336";
         if(id != "") {
-            final Call<com.preciosclaros.Response> requestCatalog = service.getProducto(id, -34.666227, -58.589724);
+
 
             requestCatalog.enqueue(new Callback<com.preciosclaros.Response>() {
                 @Override
@@ -64,7 +74,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                         Producto received = response.body().getProducto();
                         ArrayList<Sucursale> sucursales = response.body().getProductos();
                         Log.i(TAG, "Artículo descargado: ");
-                        textViewName.setText("succes");
+                        textViewName.setText(received.getNombre());
                     } else {
                         int code = response.code();
                         String c = String.valueOf(code);
@@ -84,7 +94,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
 
             });
         }
-
+*/
         /*Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create( new Gson() ))
                 .baseUrl("https://api.mercadolibre.com/")
@@ -109,14 +119,6 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             }
         });
         */
-        //View objects
-        buttonScan = (Button) findViewById(R.id.buttonScan);
-        textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
-        //intializing scan object
-        qrScan = new IntentIntegrator(this);
-        //attaching onclick listener
-        buttonScan.setOnClickListener(this);
     }
     //Getting the scan results
 
@@ -131,7 +133,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 //if qr contains data
                 //in this case you can display whatever data is available on the qrcode
                 //to a toast
-                id = result.getContents();
+                buscarProducto(result.getContents());
                 textViewName.setText(result.getContents());
                 textViewAddress.setText(result.getFormatName());
                 Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
@@ -145,5 +147,34 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         //initiating the qr code scan
         qrScan.initiateScan();
     }
+    public void buscarProducto(String codigo){
+        requestCatalog = service.getProducto(codigo, -34.666227, -58.589724);
+        requestCatalog.enqueue(new Callback<com.preciosclaros.Response>() {
+            @Override
+            public void onResponse(Call<com.preciosclaros.Response> call, Response<com.preciosclaros.Response> response) {
+                if (response.isSuccessful()) {
+                    Producto received = response.body().getProducto();
+                    ArrayList<Sucursale> sucursales = response.body().getProductos();
+                    Log.i(TAG, "Artículo descargado: ");
+                    textViewName.setText(received.getNombre());
+                    textViewAddress.setText(received.getMarca());
+                } else {
+                    int code = response.code();
+                    String c = String.valueOf(code);
+                    textViewName.setText(c);
+                }
 
+
+            }
+
+            @Override
+            public void onFailure(Call<com.preciosclaros.Response> call, Throwable t) {
+                Log.e(TAG, "Error:" + t.getCause());
+                textViewName.setText(t.getMessage());
+                textViewAddress.setText("failure");
+
+            }
+
+        });
+    }
 }

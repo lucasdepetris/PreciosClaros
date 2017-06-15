@@ -284,13 +284,17 @@
     <Compile Include="PreciosClaros\PreciosClarosAPIProd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Repositorios\Abstracciones\IListasRepositorio.cs" />
     <Compile Include="Repositorios\Abstracciones\IUsuariosRepositorio.cs" />
     <Compile Include="Repositorios\Abstracciones\IProductosRepositorio.cs" />
+    <Compile Include="Repositorios\ListaRepositorio.cs" />
     <Compile Include="Repositorios\ProductosRepositorio.cs" />
     <Compile Include="Repositorios\UsuariosRepositorio.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\Abstracciones\IListasServices.cs" />
     <Compile Include="Services\Abstracciones\IProductosServices.cs" />
     <Compile Include="Services\Abstracciones\IUsuariosServices.cs" />
+    <Compile Include="Services\ListasServices.cs" />
     <Compile Include="Services\ProductosServices.cs" />
     <Compile Include="Services\UsuariosServices.cs" />
     <Compile Include="Startup.cs" />
