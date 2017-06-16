@@ -31,7 +31,7 @@ namespace ApiPrecios.PreciosClaros
             var json = getHttpRequest("productos?string="+nombre+"&lat=" + lat + "&lng=" + lng + "&limit=" + limite);
             return JsonConvert.DeserializeObject<List<Producto>>(json.SelectToken("productos").ToString());
         }
-        //OBTENER PRODUCTOS POR ID
+        //OBTENER PRODUCTOS POR ID CONSULTA SI DEVUELVE UN OBJETO PRODUCTO POR QUE TE DEVUELVE EL OBJETO SUCURSALES TAMBIEN ?
         public Producto ObtenerProductosPorId(String id, double lat, double lng, int limite)
         {
             var json = getHttpRequest("producto?id_producto=" + id + "&lat=" + lat + "&lng=" + lng + "&limit=" + limite);

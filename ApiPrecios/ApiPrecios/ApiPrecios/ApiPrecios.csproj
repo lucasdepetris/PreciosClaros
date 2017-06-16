@@ -277,6 +277,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="PreciosClaros\Entidades\Categoria.cs" />
     <Compile Include="PreciosClaros\Entidades\Padre.cs" />
+    <Compile Include="PreciosClaros\Entidades\PreciosProducto.cs" />
     <Compile Include="PreciosClaros\Entidades\Producto.cs" />
     <Compile Include="PreciosClaros\Entidades\ProductoModel.cs" />
     <Compile Include="PreciosClaros\Entidades\Sucursal.cs" />
