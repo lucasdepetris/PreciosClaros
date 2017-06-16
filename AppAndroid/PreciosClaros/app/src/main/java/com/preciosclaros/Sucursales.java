@@ -17,6 +17,15 @@ public class Sucursales {
     private String sucursalTipo ;
     private String provincia ;
     private String comercioId;
+    private PreciosProducto preciosProducto;
+
+    public PreciosProducto getPreciosProducto() {
+        return preciosProducto;
+    }
+
+    public void setPreciosProducto(PreciosProducto preciosProducto) {
+        this.preciosProducto = preciosProducto;
+    }
 
     public String getComercioId() {
         return comercioId;
@@ -146,7 +155,7 @@ public class Sucursales {
 
     public Sucursales(String comercioRazonSocial, double distanciaNumero, String distanciaDescripcion,
                       int banderaId, boolean actualizadoHoy, String lat, String lng, String sucursalNombre,
-                      String id, String sucursalTipo, String provincia, String direccion, String banderaDescripcion, String localidad,String comercioId)
+                      String id, String sucursalTipo, String provincia, String direccion, String banderaDescripcion, String localidad,String comercioId,PreciosProducto preciosProducto)
     {
         this.comercioRazonSocial = comercioRazonSocial;
         this.distanciaNumero = distanciaNumero;
@@ -163,5 +172,6 @@ public class Sucursales {
         this.direccion = direccion;
         this.banderaDescripcion = banderaDescripcion;
         this.localidad = localidad;
+        this.preciosProducto = preciosProducto;
     }
 }

@@ -16,7 +16,8 @@ namespace ApiPrecios.PreciosClaros.Entidades
       public string sucursalNombre { get; set; }
       public string id { get; set; }
       public string sucursalTipo { get; set; }
-      //public PreciosProducto preciosProducto { get; set; }
+      public PreciosProducto preciosProducto { get; set; }
+      //public Double precioLista { get; set; }
       public string provincia { get; set; }
       public string direccion { get; set; }
       public string localidad { get; set; }

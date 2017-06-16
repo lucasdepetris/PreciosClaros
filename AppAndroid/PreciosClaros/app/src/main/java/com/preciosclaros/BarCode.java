@@ -7,6 +7,7 @@ package com.preciosclaros;
 import android.*;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.GpsStatus;
@@ -84,6 +85,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
+        qrScan.setBeepEnabled(false);
         //attaching onclick listener
         qrScan.initiateScan();
 
@@ -99,12 +101,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
             } else {
                 //if qr contains data
-                //in this case you can display whatever data is available on the qrcode
-                //to a toast
                 buscarProducto(result.getContents());
-                //textViewName.setText(result.getContents());
-                //textViewAddress.setText(result.getFormatName());
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -148,8 +145,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         };
         configure_button();
         //OBTENER UBICACION
-
-        double d = -34.666227;
+        double d =-34.6556262;
         requestCatalog = service.getProducto(codigo, d, -58.589724);
         requestCatalog.enqueue(new Callback<com.preciosclaros.Response>() {
             @Override
@@ -167,9 +163,6 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                     lista.setAdapter(adapter);
                     String s1 = String.valueOf(latitud);
                     Log.i(TAG, "Artículo descargado: "+s1);
-
-
-
                 } else {
                     int code = response.code();
                     String c = String.valueOf(code);

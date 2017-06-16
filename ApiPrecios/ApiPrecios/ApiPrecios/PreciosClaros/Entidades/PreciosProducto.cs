@@ -7,7 +7,7 @@ namespace ApiPrecios.PreciosClaros.Entidades
 {
     public class PreciosProducto
     {
-        public Decimal precioLista { get; set; }
+        public String precioLista { get; set; }
         
     }
 }

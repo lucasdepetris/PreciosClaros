@@ -131,6 +131,7 @@ public class SignInActivity extends AppCompatActivity implements
             // get editor to edit in file
             editor = sharedPreferences.edit();
             GoogleSignInAccount acct = result.getSignInAccount();
+            editor.putString("id",acct.getId());
             editor.putString("Name", acct.getDisplayName());
             editor.putString("Email",acct.getEmail());
             editor.putString("FamilyName",acct.getFamilyName());

@@ -1,5 +1,6 @@
 package com.preciosclaros;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -45,14 +46,16 @@ public class Home extends Fragment {
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = null;
+                /*Fragment fragment = null;
                 fragment = new Menu2();
                 if (fragment != null) {
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.replace(R.id.content_frame, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
-                }
+                }*/
+                Intent intent = new Intent(getActivity(),BarCode.class);
+                startActivity(intent);
             }
         });
         btn.setOnClickListener(new View.OnClickListener() {
