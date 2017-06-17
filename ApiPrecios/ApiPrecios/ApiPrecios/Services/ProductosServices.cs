@@ -19,7 +19,14 @@ namespace ApiPrecios.Services
         }
         public ProductoModel ObtenerProductoPorCodigo(string codigo, double lat, double lng, int limite = 5)
         {
-            return preciosClaros.ObtenerProductosModelPorId(codigo, lat, lng, limite);
+            var producto = preciosClaros.ObtenerProductosModelPorId(codigo, lat, lng, limite);
+
+            producto.mejorPrecio = producto.sucursales
+                                            .Where(w => w.preciosProducto.precioLista.Trim() !="")
+                                            .Select(p => decimal.Parse(p.preciosProducto.precioLista))
+                                            .Min()
+                                            .ToString();
+            return producto;
         }
         public List<Producto> BuscarProductos(string buscar, double lat, double lng)
         {
