@@ -152,10 +152,11 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             public void onResponse(Call<com.preciosclaros.Response> call, Response<com.preciosclaros.Response> response) {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
+                    precioProducto = (TextView) findViewById(R.id.MejorPrecio);
                     nombreProducto = (TextView) findViewById(R.id.MejorNombre);
                     imgProducto = (ImageView) findViewById(R.id.MejorImgProducto) ;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg").into(imgProducto);
-                    //precioProducto = (TextView) findViewById(R.id.MejorPrecio);
+                    precioProducto.setText(response.body().getMejorPrecio());
                     nombreProducto.setText(received.getNombre());
                     ArrayList<Sucursales> sucursales = response.body().getProductos();
                     SucursalesAdapter adapter = new SucursalesAdapter(context, sucursales);

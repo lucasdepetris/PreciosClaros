@@ -38,14 +38,13 @@ public class SucursalesAdapter extends ArrayAdapter<Sucursales> {
         TextView localidad = (TextView) convertView.findViewById(R.id.localidad);
         ImageView imgComercio = (ImageView) convertView.findViewById(R.id.imgComercio);
         // Populate the data into the template view using the data object
+        precioComercio.setText(sucursal.getPreciosProducto().getPrecioLista());
         distancia.setText(sucursal.getDistanciaDescripcion());
         nombreComercio.setText(sucursal.getBanderaDescripcion());
         direccionComercio.setText(sucursal.getDireccion());
         localidad.setText(sucursal.getLocalidad());
         Picasso.with(getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(imgComercio);
        // Double pre = sucursal.getPreciosProducto().getPrecioLista();
-        BigDecimal bg = new BigDecimal(10.50);
-        precioComercio.setText(bg.toString());
         // Return the completed view to render on screen
         return convertView;
     }

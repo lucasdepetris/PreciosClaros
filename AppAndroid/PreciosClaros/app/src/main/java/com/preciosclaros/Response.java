@@ -18,12 +18,23 @@ public class Response {
     }
 
     private int status;
+    private  String mejorPrecio;
+
+    public String getMejorPrecio() {
+        return mejorPrecio;
+    }
+
+    public void setMejorPrecio(String mejorPrecio) {
+        this.mejorPrecio = mejorPrecio;
+    }
+
     Producto producto;
     ArrayList<Sucursales> sucursales = new ArrayList<Sucursales>();
-    public Response(Producto producto, ArrayList<Sucursales> sucursales , int status) {
+    public Response(Producto producto, ArrayList<Sucursales> sucursales , int status,String mejorPrecio) {
         this.producto = producto;
         this.sucursales = sucursales;
         this.status = status;
+        this.mejorPrecio = mejorPrecio;
     }
 
     public Producto getProducto() {
