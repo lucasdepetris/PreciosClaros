@@ -20,9 +20,8 @@ namespace ApiPrecios.Services
         public ProductoModel ObtenerProductoPorCodigo(string codigo, double lat, double lng, int limite = 5)
         {
             var producto = preciosClaros.ObtenerProductosModelPorId(codigo, lat, lng, limite);
-
+            producto.sucursales = producto.sucursales.Where(s => s.preciosProducto.precioLista.Trim() != "" && s.distanciaNumero < 6).ToList();
             producto.mejorPrecio = producto.sucursales
-                                            .Where(w => w.preciosProducto.precioLista.Trim() !="")
                                             .Select(p => decimal.Parse(p.preciosProducto.precioLista))
                                             .Min()
                                             .ToString();

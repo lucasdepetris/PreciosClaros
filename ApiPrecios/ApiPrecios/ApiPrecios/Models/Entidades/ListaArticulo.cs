@@ -21,6 +21,8 @@ namespace ApiPrecios.Models.Entidades
 
         public decimal? precioOptimo { get; set; }
 
+        public int Cantidad { get; set; }
+
         public decimal? precioReal { get; set; }
 
         public virtual Articulo Articulo { get; set; }

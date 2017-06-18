@@ -18,6 +18,14 @@ namespace ApiPrecios.Models.Entidades
 
         [StringLength(60)]
         public string idGogle { get; set; }
+        [StringLength(60)]
+        public string Email { get; set; }
+
+        [StringLength(30)]
+        public string Nombre { get; set; }
+
+        [StringLength(30)]
+        public string Apellido { get; set; }
 
         public DateTime? fechaRegistro { get; set; }
 

@@ -17,12 +17,10 @@ namespace ApiPrecios.Repositorios
             var primarios = (from p in db.Articulos
                              where p.nombre.ToLower().Contains(buscar)
                              || p.marca.ToLower().Contains(buscar)
-                             || p.presentacion.ToLower().Contains(buscar)
                              select p).ToList();
             var secundarios = (from p in db.Articulos
                                where buscarSplit.Contains(p.nombre.ToLower())
                                || buscarSplit.Contains(p.marca.ToLower())
-                               || buscarSplit.Contains(p.presentacion.ToLower())
                                select p).ToList();
             primarios.AddRange(secundarios);
 

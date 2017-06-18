@@ -35,14 +35,10 @@ namespace ApiPrecios.Controllers
 
         }
         [HttpPost]
-        public Usuario CrearUsuarioSiNoExiste(Usuario user)
+        public ContentResult Login(Usuario user)
         {
-           
-           if(! usuariosRepo.ExisteUsuario(user.idGogle))
-            {
-               return  usuariosRepo.CrearUsuario(user);
-            }
-           return usuariosRepo.ObtenerUsuarioPorIdGoogle(user.idGogle);
+          user = UsuariosServices.LogIn(user);
+          return  Content(getResponse(user), "application/json");
         }
         private string getResponse(object result)
         {

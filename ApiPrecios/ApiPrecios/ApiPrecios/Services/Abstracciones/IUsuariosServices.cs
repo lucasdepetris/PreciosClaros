@@ -10,5 +10,6 @@ namespace ApiPrecios.Services.Abstracciones
     public interface IUsuariosServices
     {
         Usuario ObtenerUsuarioPorIdGoogle(string idGoogle);
+        Usuario LogIn(Usuario user);
     }
 }
