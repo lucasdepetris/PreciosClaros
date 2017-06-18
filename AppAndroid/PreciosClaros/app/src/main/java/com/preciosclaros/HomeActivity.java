@@ -47,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity  {
     /*@OnClick({ R.id.listas, R.id.escanear, R.id.buscar })
     public void SelectOptionHome(ImageButton btn){
         Fragment fragment = new Fragment();
@@ -60,6 +60,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
     }*/
+   @OnClick({R.id.listas ,R.id.escanear, R.id.buscar}) public void elejirOpcion(ImageButton btn){
+        switch (btn.getId()){
+            case R.id.listas:  Intent intent = new Intent(HomeActivity.this,AccountActivity.class);
+                                startActivity(intent);
+            break;
+            case R.id.escanear: Intent intent2 = new Intent(HomeActivity.this,BarCode.class);
+                                startActivity(intent2);
+            break;
+            case R.id.buscar:   Intent intent3 = new Intent(HomeActivity.this,BarCode.class);
+                                startActivity(intent3);
+            break;
+        }
+    }
     Button Close;
     Button Create;
     LayoutInflater layoutInflater;
@@ -76,10 +89,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.home);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,16 +103,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        displaySelectedScreen(R.id.nav_home);
+        displaySelectedScreen(R.id.nav_home);*/
 
     }
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+       /* DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else {*/
            /* if (doubleBackToExitPressedOnce) {
                 moveTaskToBack(true);
             }
@@ -117,11 +130,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }, 2000);
             Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
             startActivity(intent);*/
-           super.onBackPressed();
+           moveTaskToBack(true);
         }
-    }
+    //}
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
@@ -167,13 +180,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 /*Toast.makeText(this,"hola soy menu 1",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(HomeActivity.this,BarCode.class);
                 startActivity(intent);*/
-                break;
+             /*   break;
             case R.id.nav_menu2:
                 /*fragment = new Menu2();*/
-                Intent intent = new Intent(HomeActivity.this,BarCode.class);
+               /* Intent intent = new Intent(HomeActivity.this,BarCode.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_menu3:
+           /* case R.id.nav_menu3:
                 fragment = new Menu3();
                 break;
         }
@@ -208,6 +221,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
+    }*/
 }
 

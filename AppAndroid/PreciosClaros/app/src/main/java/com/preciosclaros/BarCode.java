@@ -4,33 +4,27 @@ package com.preciosclaros;
  * Created by lucas on 4/6/2017.
  */
 
-import android.*;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +34,12 @@ import com.google.zxing.integration.android.IntentResult;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -54,49 +48,30 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.widget.Toast.LENGTH_SHORT;
+
 
 public class BarCode extends AppCompatActivity implements View.OnClickListener {
     public final String TAG = "";
     //View Objects
-    private Button buttonScan;
-    private TextView  nombreProducto, precioProducto;
-    private ImageView imgProducto;
-    private ListView lista;
+    @BindView(R.id.MejorNombre) TextView nombreProducto;
+    @BindView(R.id.MejorPrecio) TextView precioProducto;
+    @BindView(R.id.MejorImgProducto) ImageView imgProducto;
+    @BindView(R.id.recycler)
+    RecyclerView recyclerView;
     private IntentIntegrator qrScan;
     public String id;
     ApiPrecios service;
     public Call<com.preciosclaros.Response> requestCatalog;
     public Context context = this;
-    public Double latitud ,longitud;
     public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.producto_por_codigo);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
-        } else {
-            locationStart();
-        }
-       /* sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
-        if (sharedPreferences.contains("Latitude")){
-            Toast.makeText(this,"latitud:"+Double.parseDouble(sharedPreferences.getString("Lat",""))+"Longitude: "+Double.parseDouble(sharedPreferences.getString("Longitude","")),Toast.LENGTH_LONG).show();
-        }else{ Toast.makeText(this,"latitud: NO HAY",Toast.LENGTH_LONG).show();}*/
+        ButterKnife.bind(this);
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .baseUrl("http://maprecios.azurewebsites.net/")
-                .build();
-        service = retrofit.create(ApiPrecios.class);
-        //View objects
 
         //intializing scan object
         qrScan = new IntentIntegrator(this);
@@ -131,6 +106,22 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
 
     public void buscarProducto(final String codigo) {
         //OBTENER UBICACION
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+        } else {
+            locationStart();
+        }
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .baseUrl("http://maprecios.azurewebsites.net/")
+                .build();
+        service = retrofit.create(ApiPrecios.class);
+
         double lati ,lng;
         sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
         if(sharedPreferences.contains("Lat")){
@@ -138,25 +129,22 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             lng = Double.parseDouble(sharedPreferences.getString("Longitude",""));
         }else {lati = 0.0; lng = 0.0;}
         //OBTENER UBICACION
-        double d =-34.6556262;
         requestCatalog = service.getProducto(codigo, lati, lng);
         requestCatalog.enqueue(new Callback<com.preciosclaros.Response>() {
             @Override
             public void onResponse(Call<com.preciosclaros.Response> call, Response<com.preciosclaros.Response> response) {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
-                    precioProducto = (TextView) findViewById(R.id.MejorPrecio);
-                    nombreProducto = (TextView) findViewById(R.id.MejorNombre);
-                    imgProducto = (ImageView) findViewById(R.id.MejorImgProducto) ;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg").into(imgProducto);
                     precioProducto.setText(response.body().getMejorPrecio());
                     nombreProducto.setText(received.getNombre());
                     ArrayList<Sucursales> sucursales = response.body().getProductos();
-                    SucursalesAdapter adapter = new SucursalesAdapter(context, sucursales);
-                    lista =(ListView) findViewById(R.id.listaProductoSucursales);
-                    lista.setAdapter(adapter);
-                    String s1 = String.valueOf(latitud);
-                    Log.i(TAG, "Artículo descargado: "+s1);
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    SucursalesAdapter adapter = new SucursalesAdapter(sucursales);
+                   // lista =(ListView) findViewById(R.id.listaProductoSucursales);
+                    recyclerView.setAdapter(adapter);
+                    Log.i(TAG, "Artículo descargado: ");
                 } else {
                     int code = response.code();
                     String c = String.valueOf(code);
