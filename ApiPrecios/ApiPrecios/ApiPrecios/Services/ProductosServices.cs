@@ -1,4 +1,5 @@
-﻿using ApiPrecios.PreciosClaros;
+﻿using ApiPrecios.Models.Entidades;
+using ApiPrecios.PreciosClaros;
 using ApiPrecios.PreciosClaros.Entidades;
 using ApiPrecios.Repositorios.Abstracciones;
 using ApiPrecios.Services.Abstracciones;
@@ -12,24 +13,34 @@ namespace ApiPrecios.Services
     {
         private readonly IPreciosClarosApi preciosClaros;
         private readonly IProductosRepositorio repositorioProductos;
-        public ProductosServices(IPreciosClarosApi precios, IProductosRepositorio productos)
+        private readonly IComerciosRepositorio repositorioComercio;
+        public ProductosServices(IPreciosClarosApi precios, IProductosRepositorio productos, IComerciosRepositorio comercio)
         {
             preciosClaros = precios;
             repositorioProductos = productos;
+            repositorioComercio = comercio;
         }
         public ProductoModel ObtenerProductoPorCodigo(string codigo, double lat, double lng, int limite = 5)
         {
             var producto = preciosClaros.ObtenerProductosModelPorId(codigo, lat, lng, limite);
-            //hola aca voy a validar si existe ya en la bdd
             if(producto.producto.nombre == null )
             {
                 return producto;
             }
-            producto.sucursales = producto.sucursales.Where(s => s.preciosProducto.precioLista.Trim() != "" && s.distanciaNumero < 6).ToList();
-            producto.mejorPrecio = producto.sucursales
-                                            .Select(p => decimal.Parse(p.preciosProducto.precioLista))
-                                            .Min()
-                                            .ToString();
+
+            validarProductoExistente(producto.producto);
+            if(producto.sucursales.Any())
+            {
+
+                validarComerciosExistentes(producto.sucursales);
+
+                producto.sucursales = producto.sucursales.Where(s => s.preciosProducto.precioLista.Trim() != "" && s.distanciaNumero < 6).ToList();
+                producto.mejorPrecio = producto.sucursales
+                                                .Select(p => decimal.Parse(p.preciosProducto.precioLista))
+                                                .Min()
+                                                .ToString();
+            }
+
             return producto;
         }
         public List<Producto> BuscarProductos(string buscar, double lat, double lng)
@@ -46,6 +57,46 @@ namespace ApiPrecios.Services
                 }).ToList();
             }
             return preciosClaros.ObtenerProductosPorNombreyZona(buscar, lat, lng, 20); 
+
+        }
+        private void validarProductoExistente(Producto producto)
+        {
+            if(!repositorioProductos.ExisteProducto(producto.id))
+            {
+                var articulo = new Articulo
+                {
+                    id = producto.id,
+                    marca = producto.marca,
+                    nombre = producto.nombre,
+                    presentacion = producto.presentacion
+                };
+                repositorioProductos.AgregarProducto(articulo);
+            }
+        }
+        private void validarComerciosExistentes(List<Sucursal> comercios)
+        {
+         foreach(var c in comercios)
+            {
+                if (!repositorioComercio.ExisteComercio(c.comercioId+ "-" + c.banderaId + "-"+c.id))
+                {
+                    var comercio = new Comercio
+                    {
+                       id = c.comercioId + "-" + c.banderaId + "-" + c.id,
+                       comercio_id = c.comercioId,
+                       bandera_descripcion = c.banderaDescripcion,
+                       bandera_id = c.banderaId,
+                       sucursal_nombre = c.sucursalNombre,
+                       sucursal_tipo = c.sucursalTipo,
+                       direccion = c.direccion,
+                       comercio_razon_social = c.comercioRazonSocial,
+                       provincia = c.provincia,
+                       localidad = c.localidad,
+                       lat = c.lat.ToString(),
+                       lng = c.lng.ToString()                 
+                    };
+                    repositorioComercio.AgregarComercio(comercio);
+                }
+            }
 
         }
 

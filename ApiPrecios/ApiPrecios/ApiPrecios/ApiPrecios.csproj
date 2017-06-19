@@ -320,9 +320,11 @@
     <Compile Include="PreciosClaros\PreciosClarosAPIProd.cs" />
     <Compile Include="App_Start\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Repositorios\Abstracciones\IComerciosRepositorio.cs" />
     <Compile Include="Repositorios\Abstracciones\IListasRepositorio.cs" />
     <Compile Include="Repositorios\Abstracciones\IUsuariosRepositorio.cs" />
     <Compile Include="Repositorios\Abstracciones\IProductosRepositorio.cs" />
+    <Compile Include="Repositorios\ComerciosRepositorio.cs" />
     <Compile Include="Repositorios\ListaRepositorio.cs" />
     <Compile Include="Repositorios\ProductosRepositorio.cs" />
     <Compile Include="Repositorios\UsuariosRepositorio.cs" />

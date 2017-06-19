@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace ApiPrecios.Repositorios.Abstracciones
 {
-    public interface IProductosRepositorio
+    public interface IComerciosRepositorio
     {
-        IList<Articulo> buscarProductos(string buscar);
-        bool ExisteProducto(string codigoProducto);
-        void AgregarProducto(Articulo articulo);
+        bool ExisteComercio(string idComercio);
+        void AgregarComercio(Comercio comercio);
     }
 }

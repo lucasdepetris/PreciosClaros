@@ -26,5 +26,15 @@ namespace ApiPrecios.Repositorios
 
             return primarios.Distinct().ToList();
         }
+        public bool ExisteProducto(string codigoProducto)
+        {
+            return db.Articulos.Any(a => a.id == codigoProducto);
+
+        }
+        public void AgregarProducto(Articulo articulo)
+        {
+            db.Articulos.Add(articulo);
+            db.SaveChanges();
+        }
     }
 }
