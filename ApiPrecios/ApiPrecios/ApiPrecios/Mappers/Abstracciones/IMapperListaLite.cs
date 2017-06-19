@@ -11,5 +11,6 @@ namespace ApiPrecios.Mappers.Abstracciones
     public interface IMapperListaLite
     {
        ListaLite MapearListaEntityAListLite(Lista lista);
+       ListaCabecera MapearListaEntityAListCabecera(Lista lista);
     }
 }

@@ -25,10 +25,10 @@ namespace ApiPrecios.Services
             var lista = ListasRepo.CrearLista(idGoogle);
             return mapper.MapearListaEntityAListLite(lista);
         }
-        public IEnumerable<ListaLite> ObtenerListas(int idUsuario)
+        public IEnumerable<ListaCabecera> ObtenerListas(int idUsuario)
         {
             var listas = ListasRepo.ObtenerListas(idUsuario).ToList();
-            return listas.Select(l => mapper.MapearListaEntityAListLite(l));
+            return listas.Select(l => mapper.MapearListaEntityAListCabecera(l));
         }
         public ListaLite AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio)
         {

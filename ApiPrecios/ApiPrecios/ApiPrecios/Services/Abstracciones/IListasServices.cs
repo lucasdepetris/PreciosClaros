@@ -12,7 +12,7 @@ namespace ApiPrecios.Services.Abstracciones
     {
         ListaLite CrearLista(String idGoogle);
         Boolean AgregarUsuarioLista(String idGoogle, int idLista);
-        IEnumerable<ListaLite> ObtenerListas(int idUsuario);
+        IEnumerable<ListaCabecera> ObtenerListas(int idUsuario);
         ListaLite ObtenerLista(int idLista);
         ListaLite AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio);
     }

@@ -21,6 +21,15 @@ namespace ApiPrecios.Mappers
                 Items = obtenerItems(lista)
             };
         }
+        public ListaCabecera MapearListaEntityAListCabecera(Lista lista)
+        {
+            return new ListaCabecera
+            {
+                id = lista.id,
+                Nombre = lista.Nombre,
+                Descripcion = lista.Descripcion
+            };
+        }
         private List<ItemLista> obtenerItemsLista (List<ListaArticulo> lista)
         {
 
@@ -59,7 +68,7 @@ namespace ApiPrecios.Mappers
             }
             return sucursales;
         }
-        private SucursalLite mapearComercioASucursalLite(Comercio comercio)
+        private SucursalLite mapearComercioASucursalLite(Comercio comercio) //Esto deberia ir en un mapper de sucursales no de lista
         {
             return new SucursalLite
             {

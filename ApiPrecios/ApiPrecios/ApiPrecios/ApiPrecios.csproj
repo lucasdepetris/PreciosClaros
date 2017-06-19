@@ -299,6 +299,7 @@
       <DependentUpon>DBPrecios.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entidades\Lites\ItemLista.cs" />
+    <Compile Include="Models\Entidades\Lites\ListaCabecera.cs" />
     <Compile Include="Models\Entidades\Lites\ListaLite.cs" />
     <Compile Include="Models\Entidades\Lites\ItemSucursales.cs" />
     <Compile Include="Models\Entidades\Lites\SucursalLite.cs" />
