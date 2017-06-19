@@ -20,6 +20,7 @@ namespace ApiPrecios.Services
         public ProductoModel ObtenerProductoPorCodigo(string codigo, double lat, double lng, int limite = 5)
         {
             var producto = preciosClaros.ObtenerProductosModelPorId(codigo, lat, lng, limite);
+            //hola aca voy a validar si existe ya en la bdd
             if(producto.producto.nombre == null )
             {
                 return producto;

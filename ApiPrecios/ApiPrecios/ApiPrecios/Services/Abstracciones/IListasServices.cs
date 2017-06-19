@@ -10,7 +10,7 @@ namespace ApiPrecios.Services.Abstracciones
 {
     public interface IListasServices
     {
-        ListaLite CrearLista(String idGoogle);
+        ListaLite CrearLista(int idUsuario, string nombre, string descripcion);
         Boolean AgregarUsuarioLista(String idGoogle, int idLista);
         IEnumerable<ListaCabecera> ObtenerListas(int idUsuario);
         ListaLite ObtenerLista(int idLista);

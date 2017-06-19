@@ -20,9 +20,9 @@ namespace ApiPrecios.Services
             ListasRepo = repo;
             mapper = mapperList;
         }
-        public ListaLite CrearLista(String idGoogle)
+        public ListaLite CrearLista(int idUsuario, string nombre, string descripcion)
         {
-            var lista = ListasRepo.CrearLista(idGoogle);
+            var lista = ListasRepo.CrearLista(idUsuario, nombre, descripcion);
             return mapper.MapearListaEntityAListLite(lista);
         }
         public IEnumerable<ListaCabecera> ObtenerListas(int idUsuario)

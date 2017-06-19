@@ -10,16 +10,14 @@ namespace ApiPrecios.Repositorios
     public class ListaRepositorio : IListasRepositorio
     {
 
-        public Lista CrearLista(string idGoogle)
+        public Lista CrearLista(int idUsuario, string nombre, string descripcion)
         {
             DBPrecios db = new DBPrecios();
             var lista = new Lista();
-            Usuario user = new Usuario();
             lista.fechaCreacion = DateTime.Now;
-            user.idGogle = idGoogle;
-            user.Listas.Add(lista);
-            db.Listas.Add(lista);
-            db.Usuarios.Add(user);
+            lista.Nombre = nombre;
+            lista.Descripcion = descripcion;
+            db.Usuarios.Find(idUsuario).Listas.Add(lista);
             db.SaveChanges();
             return lista;
 

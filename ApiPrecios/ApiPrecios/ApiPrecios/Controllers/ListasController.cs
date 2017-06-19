@@ -19,9 +19,9 @@ namespace ApiPrecios.Controllers
             ListaRepo = repositorio;
         }
         [HttpPost]
-        public ContentResult CrearLista(string idGoogle)
+        public ContentResult CrearLista(int idUsuario, string nombre, string descripcion)
         {
-            var lista = listaServices.CrearLista(idGoogle);
+            var lista = listaServices.CrearLista(idUsuario, nombre, descripcion);
             return Content(getResponse(lista), "application/json");
         }
 

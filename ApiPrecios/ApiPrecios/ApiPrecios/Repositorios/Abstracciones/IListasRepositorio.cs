@@ -9,7 +9,7 @@ namespace ApiPrecios.Repositorios.Abstracciones
 {
     public interface IListasRepositorio
     {
-        Lista CrearLista(String idGoogle);
+        Lista CrearLista(int idUsuario, string nombre, string descripcion);
         Boolean AgregarUsuarioLista(String idGoogle , int idLista);
         IEnumerable<Lista> ObtenerListas(int idUsuario);
         Lista ObtenerLista(int id);
