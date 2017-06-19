@@ -1,4 +1,5 @@
 ﻿using ApiPrecios.Models.Entidades;
+using ApiPrecios.Models.Entidades.Lites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,10 @@ namespace ApiPrecios.Services.Abstracciones
 {
     public interface IListasServices
     {
-        Lista CrearLista(String idGoogle);
+        ListaLite CrearLista(String idGoogle);
         Boolean AgregarUsuarioLista(String idGoogle, int idLista);
+        IEnumerable<ListaLite> ObtenerListas(int idUsuario);
+        ListaLite ObtenerLista(int idLista);
+        ListaLite AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio);
     }
 }

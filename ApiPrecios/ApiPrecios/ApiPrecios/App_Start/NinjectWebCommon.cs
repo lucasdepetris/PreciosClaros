@@ -15,6 +15,8 @@ namespace ApiPrecios.App_Start
     using Repositorios;
     using Services.Abstracciones;
     using Services;
+    using Mappers.Abstracciones;
+    using Mappers;
 
     public static class NinjectWebCommon 
     {
@@ -68,9 +70,12 @@ namespace ApiPrecios.App_Start
         {
             kernel.Bind<IPreciosClarosApi>().To<PreciosClarosAPIProd>();
             kernel.Bind<IUsuariosRepositorio>().To<UsuariosRepositorio>();
+            kernel.Bind<IListasRepositorio>().To<ListaRepositorio>();
+            kernel.Bind<IListasServices>().To<ListasServices>();
             kernel.Bind<IUsuariosServices>().To<UsuariosServices>();
             kernel.Bind<IProductosServices>().To<ProductosServices>();
             kernel.Bind<IProductosRepositorio>().To<ProductosRepositorio>();
+            kernel.Bind<IMapperListaLite>().To<MapperListaLite>();
         }        
     }
 }

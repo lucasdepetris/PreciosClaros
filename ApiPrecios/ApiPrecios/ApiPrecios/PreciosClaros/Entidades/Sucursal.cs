@@ -9,7 +9,7 @@ namespace ApiPrecios.PreciosClaros.Entidades
     {
       public decimal distanciaNumero { get; set; }
       public string distanciaDescripcion { get; set; }
-      public int banderaId { get; set; }
+      public int? banderaId { get; set; }
       public bool actualizadoHoy { get; set; }
       public double lat { get; set; }
       public double lng { get; set; }
@@ -23,7 +23,7 @@ namespace ApiPrecios.PreciosClaros.Entidades
       public string localidad { get; set; }
       public string banderaDescripcion { get; set; }
       public string comercioRazonSocial { get; set; }
-      public int comercioId { get; set; }
+      public int? comercioId { get; set; }
       public int sucursalId { get; set; }
     }
 }

@@ -1,0 +1,535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBPrecios.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Articulos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_categoria" Type="int" />
+          <Property Name="id" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="marca" Type="nvarchar" MaxLength="150" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="250" />
+          <Property Name="presentacion" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="150" />
+          <Property Name="nivel" Type="int" />
+          <Property Name="cant_productos" Type="int" />
+        </EntityType>
+        <EntityType Name="Comercios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="comercio_id" Type="int" />
+          <Property Name="comercio_razon_social" Type="nvarchar" MaxLength="250" />
+          <Property Name="bandera_id" Type="int" />
+          <Property Name="bandera_descripcion" Type="nvarchar" MaxLength="150" />
+          <Property Name="sucursal_tipo" Type="nvarchar" MaxLength="150" />
+          <Property Name="sucursal_nombre" Type="nvarchar" MaxLength="150" />
+          <Property Name="provincia" Type="nvarchar" MaxLength="150" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="150" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="150" />
+          <Property Name="lat" Type="nvarchar" MaxLength="150" />
+          <Property Name="lng" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ListaArticulo">
+          <Key>
+            <PropertyRef Name="idLista" />
+            <PropertyRef Name="idArticulo" />
+          </Key>
+          <Property Name="idLista" Type="int" Nullable="false" />
+          <Property Name="idArticulo" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="precioOptimo" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="precioReal" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="idComercio" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Listas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="60" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="140" />
+        </EntityType>
+        <EntityType Name="Precios">
+          <Key>
+            <PropertyRef Name="_id" />
+          </Key>
+          <Property Name="_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_comercio" Type="nvarchar" MaxLength="150" />
+          <Property Name="id_articulo" Type="nvarchar" MaxLength="250" />
+          <Property Name="precio" Type="decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idGogle" Type="nvarchar" MaxLength="60" />
+          <Property Name="fechaRegistro" Type="datetime" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="30" />
+          <Property Name="apellido" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="UsuariosListas">
+          <Key>
+            <PropertyRef Name="idLista" />
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idLista" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__ListaArti__idCom__34C8D9D1">
+          <End Role="Comercios" Type="Self.Comercios" Multiplicity="0..1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lista">
+          <End Role="Listas" Type="Self.Listas" Multiplicity="1" />
+          <End Role="UsuariosListas" Type="Self.UsuariosListas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosListas">
+              <PropertyRef Name="idLista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListaArticuloArticulo">
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListaArticuloLista">
+          <End Role="Listas" Type="Self.Listas" Multiplicity="1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idLista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListaUsuario">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="UsuariosListas" Type="Self.UsuariosListas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UsuariosListas">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_precioArticulo">
+          <End Role="Articulos" Type="Self.Articulos" Multiplicity="0..1" />
+          <End Role="Precios" Type="Self.Precios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Precios">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_precioComercio">
+          <End Role="Comercios" Type="Self.Comercios" Multiplicity="0..1" />
+          <End Role="Precios" Type="Self.Precios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Precios">
+              <PropertyRef Name="id_comercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBPreciosStoreContainer">
+          <EntitySet Name="Articulos" EntityType="Self.Articulos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comercios" EntityType="Self.Comercios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaArticulo" EntityType="Self.ListaArticulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Listas" EntityType="Self.Listas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Precios" EntityType="Self.Precios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuariosListas" EntityType="Self.UsuariosListas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ListaArti__idCom__34C8D9D1" Association="Self.FK__ListaArti__idCom__34C8D9D1">
+            <End Role="Comercios" EntitySet="Comercios" />
+            <End Role="ListaArticulo" EntitySet="ListaArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lista" Association="Self.FK_Lista">
+            <End Role="Listas" EntitySet="Listas" />
+            <End Role="UsuariosListas" EntitySet="UsuariosListas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListaArticuloArticulo" Association="Self.FK_ListaArticuloArticulo">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="ListaArticulo" EntitySet="ListaArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListaArticuloLista" Association="Self.FK_ListaArticuloLista">
+            <End Role="Listas" EntitySet="Listas" />
+            <End Role="ListaArticulo" EntitySet="ListaArticulo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListaUsuario" Association="Self.FK_ListaUsuario">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="UsuariosListas" EntitySet="UsuariosListas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_precioArticulo" Association="Self.FK_precioArticulo">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Precios" EntitySet="Precios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_precioComercio" Association="Self.FK_precioComercio">
+            <End Role="Comercios" EntitySet="Comercios" />
+            <End Role="Precios" EntitySet="Precios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBPrecios" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Articulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_categoria" Type="Int32" />
+          <Property Name="id" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="marca" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="presentacion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListaArticuloes" Relationship="Self.FK_ListaArticuloArticulo" FromRole="Articulos" ToRole="ListaArticulo" />
+          <NavigationProperty Name="Precios" Relationship="Self.FK_precioArticulo" FromRole="Articulos" ToRole="Precios" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nivel" Type="Int32" />
+          <Property Name="cant_productos" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Comercio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="comercio_id" Type="Int32" />
+          <Property Name="comercio_razon_social" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="bandera_id" Type="Int32" />
+          <Property Name="bandera_descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="sucursal_tipo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="sucursal_nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="provincia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="localidad" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="lat" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="lng" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListaArticuloes" Relationship="Self.FK__ListaArti__idCom__34C8D9D1" FromRole="Comercios" ToRole="ListaArticulo" />
+          <NavigationProperty Name="Precios" Relationship="Self.FK_precioComercio" FromRole="Comercios" ToRole="Precios" />
+        </EntityType>
+        <EntityType Name="ListaArticulo">
+          <Key>
+            <PropertyRef Name="idLista" />
+            <PropertyRef Name="idArticulo" />
+          </Key>
+          <Property Name="idLista" Type="Int32" Nullable="false" />
+          <Property Name="idArticulo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="precioOptimo" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="precioReal" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="idComercio" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK_ListaArticuloArticulo" FromRole="ListaArticulo" ToRole="Articulos" />
+          <NavigationProperty Name="Comercio" Relationship="Self.FK__ListaArti__idCom__34C8D9D1" FromRole="ListaArticulo" ToRole="Comercios" />
+          <NavigationProperty Name="Lista" Relationship="Self.FK_ListaArticuloLista" FromRole="ListaArticulo" ToRole="Listas" />
+        </EntityType>
+        <EntityType Name="Lista">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="140" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListaArticuloes" Relationship="Self.FK_ListaArticuloLista" FromRole="Listas" ToRole="ListaArticulo" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.UsuariosListas" FromRole="Listas" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Precio">
+          <Key>
+            <PropertyRef Name="C_id" />
+          </Key>
+          <Property Name="C_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_comercio" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="id_articulo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="precio1" Type="Decimal" Precision="18" Scale="4" />
+          <NavigationProperty Name="Articulo" Relationship="Self.FK_precioArticulo" FromRole="Precios" ToRole="Articulos" />
+          <NavigationProperty Name="Comercio" Relationship="Self.FK_precioComercio" FromRole="Precios" ToRole="Comercios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idGogle" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="apellido" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Listas" Relationship="Self.UsuariosListas" FromRole="Usuarios" ToRole="Listas" />
+        </EntityType>
+        <Association Name="FK_ListaArticuloArticulo">
+          <End Role="Articulos" Type="Self.Articulo" Multiplicity="1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idArticulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_precioArticulo">
+          <End Role="Articulos" Type="Self.Articulo" Multiplicity="0..1" />
+          <End Role="Precios" Type="Self.Precio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articulos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Precios">
+              <PropertyRef Name="id_articulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ListaArti__idCom__34C8D9D1">
+          <End Role="Comercios" Type="Self.Comercio" Multiplicity="0..1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_precioComercio">
+          <End Role="Comercios" Type="Self.Comercio" Multiplicity="0..1" />
+          <End Role="Precios" Type="Self.Precio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Precios">
+              <PropertyRef Name="id_comercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListaArticuloLista">
+          <End Role="Listas" Type="Self.Lista" Multiplicity="1" />
+          <End Role="ListaArticulo" Type="Self.ListaArticulo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Listas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ListaArticulo">
+              <PropertyRef Name="idLista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuariosListas">
+          <End Role="Listas" Type="Self.Lista" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DBPreciosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Articulos" EntityType="Self.Articulo" />
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Comercios" EntityType="Self.Comercio" />
+          <EntitySet Name="ListaArticuloes" EntityType="Self.ListaArticulo" />
+          <EntitySet Name="Listas" EntityType="Self.Lista" />
+          <EntitySet Name="Precios" EntityType="Self.Precio" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_ListaArticuloArticulo" Association="Self.FK_ListaArticuloArticulo">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="ListaArticulo" EntitySet="ListaArticuloes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_precioArticulo" Association="Self.FK_precioArticulo">
+            <End Role="Articulos" EntitySet="Articulos" />
+            <End Role="Precios" EntitySet="Precios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ListaArti__idCom__34C8D9D1" Association="Self.FK__ListaArti__idCom__34C8D9D1">
+            <End Role="Comercios" EntitySet="Comercios" />
+            <End Role="ListaArticulo" EntitySet="ListaArticuloes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_precioComercio" Association="Self.FK_precioComercio">
+            <End Role="Comercios" EntitySet="Comercios" />
+            <End Role="Precios" EntitySet="Precios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListaArticuloLista" Association="Self.FK_ListaArticuloLista">
+            <End Role="Listas" EntitySet="Listas" />
+            <End Role="ListaArticulo" EntitySet="ListaArticuloes" />
+          </AssociationSet>
+          <AssociationSet Name="UsuariosListas" Association="Self.UsuariosListas">
+            <End Role="Listas" EntitySet="Listas" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBPreciosStoreContainer" CdmEntityContainer="DBPreciosEntities">
+          <EntitySetMapping Name="Articulos">
+            <EntityTypeMapping TypeName="DBPrecios.Articulo">
+              <MappingFragment StoreEntitySet="Articulos">
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="DBPrecios.Categoria">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nivel" ColumnName="nivel" />
+                <ScalarProperty Name="cant_productos" ColumnName="cant_productos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comercios">
+            <EntityTypeMapping TypeName="DBPrecios.Comercio">
+              <MappingFragment StoreEntitySet="Comercios">
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="comercio_id" ColumnName="comercio_id" />
+                <ScalarProperty Name="comercio_razon_social" ColumnName="comercio_razon_social" />
+                <ScalarProperty Name="bandera_id" ColumnName="bandera_id" />
+                <ScalarProperty Name="bandera_descripcion" ColumnName="bandera_descripcion" />
+                <ScalarProperty Name="sucursal_tipo" ColumnName="sucursal_tipo" />
+                <ScalarProperty Name="sucursal_nombre" ColumnName="sucursal_nombre" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="lat" ColumnName="lat" />
+                <ScalarProperty Name="lng" ColumnName="lng" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaArticuloes">
+            <EntityTypeMapping TypeName="DBPrecios.ListaArticulo">
+              <MappingFragment StoreEntitySet="ListaArticulo">
+                <ScalarProperty Name="idLista" ColumnName="idLista" />
+                <ScalarProperty Name="idArticulo" ColumnName="idArticulo" />
+                <ScalarProperty Name="precioOptimo" ColumnName="precioOptimo" />
+                <ScalarProperty Name="precioReal" ColumnName="precioReal" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="idComercio" ColumnName="idComercio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Listas">
+            <EntityTypeMapping TypeName="DBPrecios.Lista">
+              <MappingFragment StoreEntitySet="Listas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Precios">
+            <EntityTypeMapping TypeName="DBPrecios.Precio">
+              <MappingFragment StoreEntitySet="Precios">
+                <ScalarProperty Name="C_id" ColumnName="_id" />
+                <ScalarProperty Name="id_comercio" ColumnName="id_comercio" />
+                <ScalarProperty Name="id_articulo" ColumnName="id_articulo" />
+                <ScalarProperty Name="precio1" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DBPrecios.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idGogle" ColumnName="idGogle" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UsuariosListas" TypeName="DBPrecios.UsuariosListas" StoreEntitySet="UsuariosListas">
+            <EndProperty Name="Listas">
+              <ScalarProperty Name="id" ColumnName="idLista" />
+            </EndProperty>
+            <EndProperty Name="Usuarios">
+              <ScalarProperty Name="id" ColumnName="idUsuario" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

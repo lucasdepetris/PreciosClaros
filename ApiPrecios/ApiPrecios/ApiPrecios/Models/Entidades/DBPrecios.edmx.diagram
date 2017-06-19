@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ace24ec5f554106bdb2bb982485cb0f" Name="Diagram1">
+        <EntityTypeShape EntityType="DBPrecios.Articulo" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.Categoria" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.Comercio" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.ListaArticulo" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.Lista" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.Precio" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBPrecios.Usuario" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="DBPrecios.FK_ListaArticuloArticulo" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPrecios.FK_precioArticulo" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPrecios.FK__ListaArti__idCom__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPrecios.FK_precioComercio" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPrecios.FK_ListaArticuloLista" ManuallyRouted="false" />
+        <AssociationConnector Association="DBPrecios.UsuariosListas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

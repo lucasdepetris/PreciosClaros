@@ -9,9 +9,10 @@ namespace ApiPrecios.Repositorios
 {
     public class ListaRepositorio : IListasRepositorio
     {
-        private DBPrecios db = new DBPrecios();
-        public Lista CrearLista(String idGoogle)
+
+        public Lista CrearLista(string idGoogle)
         {
+            DBPrecios db = new DBPrecios();
             var lista = new Lista();
             Usuario user = new Usuario();
             lista.fechaCreacion = DateTime.Now;
@@ -23,14 +24,43 @@ namespace ApiPrecios.Repositorios
             return lista;
 
         }
-        public Boolean AgregarUsuarioLista(String idGoogle, int idLista)
+        public Boolean AgregarUsuarioLista(string idGoogle, int idLista)
         {
+            DBPrecios db = new DBPrecios();
             Usuario user = (from p in db.Usuarios where p.idGogle.Contains(idGoogle) select p).First();
             Lista lis = (from p in db.Listas where p.id.Equals(idLista) select p).First();
             lis.Usuarios.Add(user);
             user.Listas.Add(lis);
             db.SaveChanges();
             return true;
+        }
+        public bool AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio)
+        {
+            DBPrecios db = new DBPrecios();
+            var lista = db.Listas.Where(l => l.id == idLista).FirstOrDefault();
+            var lart = new ListaArticulo
+            {
+                idLista = idLista,
+                idArticulo = idArticulo,
+                Cantidad = cantidad,
+                precioOptimo = precioOptimo,
+                idComercio = idComercio
+            };
+            lista.ListaArticuloes.Add(lart);
+            db.SaveChanges();
+            return true;
+            
+        }
+
+        public IEnumerable<Lista> ObtenerListas(int idUsuario)
+        {
+            DBPrecios db = new DBPrecios();
+            return db.Listas.Where(l => l.Usuarios.Any(u => u.id == idUsuario));
+        }
+        public Lista ObtenerLista(int id)
+        {
+            DBPrecios db = new DBPrecios();
+            return db.Listas.Where(l => l.id == id).FirstOrDefault();
         }
     }
 }

@@ -18,19 +18,39 @@ namespace ApiPrecios.Controllers
             listaServices = service;
             ListaRepo = repositorio;
         }
-        private DBPrecios db = new DBPrecios();
         [HttpPost]
-        public Lista  CrearLista(String idGoogle)
+        public ContentResult CrearLista(string idGoogle)
         {
             var lista = listaServices.CrearLista(idGoogle);
-            return lista;
+            return Content(getResponse(lista), "application/json");
+        }
 
+        [HttpGet]
+        public ContentResult ObtenerListas(int idUsuario)
+        {
+            var listas = listaServices.ObtenerListas(idUsuario).ToList();
+            return Content(getResponse(listas), "application/json");
+        }
+
+        [HttpGet]
+        public ContentResult ObtenerLista(int idLista)
+        {
+            var lista = listaServices.ObtenerLista(idLista);
+            return Content(getResponse(lista), "application/json");
         }
         [HttpPost]
-        public Boolean AgregarUsuarioLista(String idGoogle, int idLista)
+        public ContentResult AgregarUsuarioLista(string idGoogle, int idLista)
         {
-           return listaServices.AgregarUsuarioLista(idGoogle, idLista);
+           var lista = listaServices.AgregarUsuarioLista(idGoogle, idLista);
+           return Content(getResponse(lista), "application/json");
         }
+        [HttpPost]
+        public ContentResult AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio)
+        {
+            var lista = listaServices.AgregarProducto(idLista,idArticulo,cantidad,precioOptimo,idComercio);
+            return Content(getResponse(lista), "application/json");
+        }
+
         private string getResponse(object result)
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(result);
