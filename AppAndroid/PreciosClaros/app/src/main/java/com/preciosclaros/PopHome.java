@@ -64,7 +64,7 @@ public class PopHome extends AppCompatActivity{
             pw = new PopupWindow(layout, RadioGroup.LayoutParams.MATCH_PARENT,
                     RadioGroup.LayoutParams.MATCH_PARENT, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            Close = (Button) layout.findViewById(R.id.hola);
+            Close = (Button) layout.findViewById(R.id.close_popup);
             Close.setOnClickListener(cancel_button);
         } catch (Exception e) {
             e.printStackTrace();

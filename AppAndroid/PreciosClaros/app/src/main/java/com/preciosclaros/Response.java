@@ -1,5 +1,7 @@
 package com.preciosclaros;
 
+import com.preciosclaros.modelo.Sucursales;
+
 import java.util.ArrayList;
 
 /**

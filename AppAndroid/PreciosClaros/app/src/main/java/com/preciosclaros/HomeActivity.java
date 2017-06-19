@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity  {
     }*/
    @OnClick({R.id.listas ,R.id.escanear, R.id.buscar}) public void elejirOpcion(ImageButton btn){
         switch (btn.getId()){
-            case R.id.listas:  Intent intent = new Intent(HomeActivity.this,AccountActivity.class);
+            case R.id.listas:  Intent intent = new Intent(HomeActivity.this,MisListas.class);
                                 startActivity(intent);
             break;
             case R.id.escanear: Intent intent2 = new Intent(HomeActivity.this,BarCode.class);
