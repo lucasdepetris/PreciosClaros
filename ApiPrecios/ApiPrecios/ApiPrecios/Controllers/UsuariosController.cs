@@ -27,18 +27,10 @@ namespace ApiPrecios.Controllers
         }
 
         [HttpPost]
-        public ContentResult ObtenerUsuarioPorIdGoogle(string idGoogle)
-        {
-            var user = UsuariosServices.ObtenerUsuarioPorIdGoogle(idGoogle);
-
-            return Content(getResponse(user), "application/json");
-
-        }
-        [HttpPost]
         public ContentResult Login(Usuario user)
         {
-          user = UsuariosServices.LogIn(user);
-          return  Content(getResponse(user), "application/json");
+          var userLite = UsuariosServices.LogIn(user);
+          return  Content(getResponse(userLite), "application/json");
         }
         private string getResponse(object result)
         {
