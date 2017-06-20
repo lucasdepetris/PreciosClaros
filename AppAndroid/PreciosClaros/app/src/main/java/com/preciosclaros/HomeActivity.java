@@ -68,7 +68,7 @@ public class HomeActivity extends AppCompatActivity  {
             case R.id.escanear: Intent intent2 = new Intent(HomeActivity.this,BarCode.class);
                                 startActivity(intent2);
             break;
-            case R.id.buscar:   Intent intent3 = new Intent(HomeActivity.this,BarCode.class);
+            case R.id.buscar:   Intent intent3 = new Intent(HomeActivity.this,AccountActivity.class);
                                 startActivity(intent3);
             break;
         }
