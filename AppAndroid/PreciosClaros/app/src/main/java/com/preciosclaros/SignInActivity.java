@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,8 +34,20 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.gson.Gson;
+import com.preciosclaros.adaptadores.ListasAdaptador;
+import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Usuario;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SignInActivity extends AppCompatActivity implements
@@ -48,7 +61,9 @@ public class SignInActivity extends AppCompatActivity implements
     private TextView textTitle;
     private ProgressDialog mProgressDialog;
     private ImageView img ;
-
+    public Usuario us;
+    ApiPrecios service;
+    public Call<Usuario> requestCatalog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,11 +146,59 @@ public class SignInActivity extends AppCompatActivity implements
             // get editor to edit in file
             editor = sharedPreferences.edit();
             GoogleSignInAccount acct = result.getSignInAccount();
-            editor.putString("id",acct.getId());
-            editor.putString("Name", acct.getDisplayName());
+            //editor.putString("id",acct.getId());
+           /* editor.putString("Name", acct.getDisplayName());
             editor.putString("Email",acct.getEmail());
-            editor.putString("FamilyName",acct.getFamilyName());
-            editor.commit();   // commit the values
+            editor.putString("FamilyName",acct.getFamilyName());*/
+
+
+
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                    .baseUrl("http://maprecios.azurewebsites.net/")
+                    .build();
+            service = retrofit.create(ApiPrecios.class);
+            Usuario user = new Usuario();
+            user.setIdGoogle(acct.getId());
+            user.setNombre(acct.getDisplayName());
+            user.setApellido(acct.getFamilyName());
+            user.setEmail(acct.getEmail());
+            requestCatalog = service.loginUsuario(user);
+            requestCatalog.enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(Call<Usuario> call, retrofit2.Response<Usuario> response) {
+                    if (response.isSuccessful()) {
+                        Usuario usuario = response.body();
+                        sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
+                        // get editor to edit in file
+                        editor = sharedPreferences.edit();
+                        editor.putInt("id",usuario.getId());
+                        editor.putString("mail",usuario.getEmail());
+                        editor.putString("apellido",usuario.getApellido());
+                        editor.putString("nombre", usuario.getNombre());
+                        editor.commit();
+                        Log.i(TAG, "Artículo descargado : ");
+                    } else {
+                        int code = response.code();
+                        String c = String.valueOf(code);
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<Usuario> call, Throwable t) {
+                    Log.e(TAG, "Error:" + t.getCause());
+
+                }
+
+            });
+
+            //editor.commit();   // commit the values
             updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.

@@ -1,25 +1,20 @@
 package com.preciosclaros;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.preciosclaros.R.id.imgComercio;
 
 /**
  * Created by lucas on 15/6/2017.

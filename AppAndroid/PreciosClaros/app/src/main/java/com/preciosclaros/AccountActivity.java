@@ -19,11 +19,11 @@ public class AccountActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         sharedPreferences = getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
-        if (sharedPreferences.contains("Name"))
+        if (sharedPreferences.contains("id"))
         {
-            String uName = sharedPreferences.getString("Name", "");
-            String Email = sharedPreferences.getString("Email", "");
-            String FamilyName = sharedPreferences.getString("FamilyName", "");
+            String uName = sharedPreferences.getString("nombre","");
+            String Email = sharedPreferences.getString("mail", "");
+            String FamilyName = sharedPreferences.getString("apellido", "");
             TextView usuario = (TextView) findViewById(R.id.user);
             TextView email = (TextView) findViewById(R.id.email);
             TextView family = (TextView) findViewById(R.id.familyname);
