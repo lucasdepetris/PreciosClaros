@@ -33,10 +33,17 @@
             android:id="@+id/MejorPrecio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
+        <ImageButton
+            android:src="@drawable/agregarboton"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:layout_below="@id/MejorPrecio"
             android:layout_alignParentRight="true"
             android:id="@+id/agregarMejorPrecio"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:maxWidth="70dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

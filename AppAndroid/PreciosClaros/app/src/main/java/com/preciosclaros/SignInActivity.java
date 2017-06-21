@@ -164,8 +164,8 @@ public class SignInActivity extends AppCompatActivity implements
             service = retrofit.create(ApiPrecios.class);
             Usuario user = new Usuario();
             user.setIdGoogle(acct.getId());
-            user.setNombre(acct.getDisplayName());
-            user.setApellido(acct.getFamilyName());
+           // user.setNombre(acct.getDisplayName());
+            //user.setApellido(acct.getFamilyName());
             user.setEmail(acct.getEmail());
             requestCatalog = service.loginUsuario(user);
             requestCatalog.enqueue(new Callback<Usuario>() {

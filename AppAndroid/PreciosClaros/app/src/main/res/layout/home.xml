@@ -6,18 +6,35 @@
         android:gravity="center_vertical">
 
         <ImageButton
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/boton1"
             android:id="@+id/listas"
-            android:layout_width="match_parent"
+            android:maxWidth="260dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageButton
+            android:layout_marginBottom="20dp"
+            android:maxWidth="260dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/boton2"
             android:id="@+id/escanear"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageButton
+            android:maxWidth="260dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/boton3"
             android:id="@+id/buscar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

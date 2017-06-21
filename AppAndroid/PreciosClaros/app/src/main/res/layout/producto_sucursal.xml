@@ -43,7 +43,13 @@
         android:id="@+id/precio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <Button
+    <ImageButton
+        android:src="@drawable/agregarboton"
+        android:background="@android:color/transparent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp"
+        android:maxWidth="70dp"
         android:layout_below="@id/direccion"
         android:id="@+id/agregar"
         android:layout_alignParentRight="true"

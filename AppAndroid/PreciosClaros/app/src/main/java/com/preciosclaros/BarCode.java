@@ -137,7 +137,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg").into(imgProducto);
-                    precioProducto.setText(response.body().getMejorPrecio());
+                    precioProducto.setText("$"+response.body().getMejorPrecio());
                     nombreProducto.setText(received.getNombre());
                     ArrayList<Sucursales> sucursales = response.body().getProductos();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);

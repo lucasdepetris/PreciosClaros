@@ -47,7 +47,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         holder.distancia.setText(sucursal.getDistanciaDescripcion());
         holder.nombreComercio.setText(sucursal.getBanderaDescripcion());
         holder.direccion.setText(sucursal.getDireccion());
-        holder.precio.setText(sucursal.getPreciosProducto().getPrecioLista());
+        holder.precio.setText("$"+sucursal.getPreciosProducto().getPrecioLista());
         holder.localidad.setText(sucursal.getLocalidad());
         Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(holder.imgComercio);
 
