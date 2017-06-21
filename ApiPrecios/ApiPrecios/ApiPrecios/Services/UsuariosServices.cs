@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using ApiPrecios.Models.Entidades;
 using ApiPrecios.Repositorios.Abstracciones;
+using ApiPrecios.Models.Entidades.Lites;
 
 namespace ApiPrecios.Services
 {
@@ -21,14 +22,21 @@ namespace ApiPrecios.Services
             // por si se quiere agregar mas logica, y no es un llamado solo a la base de datos
             return usuariosRepo.ObtenerUsuarioPorIdGoogle(idGoogle);
         }
-        public Usuario LogIn(Usuario user)
+        public UsuarioLite LogIn(Usuario user)
         {
             if (!usuariosRepo.ExisteUsuario(user.idGogle))
             {
                 user = usuariosRepo.CrearUsuario(user);
             }
             user = usuariosRepo.ObtenerUsuarioPorIdGoogle(user.idGogle);
-            return user;
+            return new UsuarioLite {
+                                     id = user.id,
+                                     Nombre = user.Nombre,
+                                     apellido = user.apellido,
+                                     idGogle = user.idGogle,
+                                     Email = user.Email,
+                                     fechaRegistro = user.fechaRegistro
+                                     };
         }
     }
 }

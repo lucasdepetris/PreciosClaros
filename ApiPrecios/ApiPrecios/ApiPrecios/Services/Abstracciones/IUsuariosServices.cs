@@ -1,4 +1,5 @@
 ﻿using ApiPrecios.Models.Entidades;
+using ApiPrecios.Models.Entidades.Lites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace ApiPrecios.Services.Abstracciones
     public interface IUsuariosServices
     {
         Usuario ObtenerUsuarioPorIdGoogle(string idGoogle);
-        Usuario LogIn(Usuario user);
+        UsuarioLite LogIn(Usuario user);
     }
 }
