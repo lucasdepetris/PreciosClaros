@@ -23,14 +23,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.preciosclaros.adaptadores.ListasAdaptador;
+import com.preciosclaros.modelo.Lista;
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +52,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -49,31 +61,63 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.preciosclaros.R.id.parent;
 
 
 public class BarCode extends AppCompatActivity implements View.OnClickListener {
     public final String TAG = "";
     //View Objects
+    private PopupWindow pw;
+    EditText cantidad;
+    Spinner spinner;
+    public Button Close,CrearProd;
     @BindView(R.id.MejorNombre) TextView nombreProducto;
     @BindView(R.id.MejorPrecio) TextView precioProducto;
     @BindView(R.id.MejorImgProducto) ImageView imgProducto;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
+    Producto mejorProducto;
+    Sucursales mejorSucursal;
+    ArrayList<String> ListasId;
     private IntentIntegrator qrScan;
     public String id;
     ApiPrecios service;
     public Call<com.preciosclaros.Response> requestCatalog;
+    public Call<ArrayList<Lista>> requestListas;
     public Context context = this;
     public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    @OnClick(R.id.agregarMejorPrecio)public void agregarProducto(){
+        requestListas = service.getListas(7);
+        requestListas.enqueue(new Callback<ArrayList<Lista>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Lista>> call, retrofit2.Response<ArrayList<Lista>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Lista> listas = response.body();
 
+                    Log.i(TAG, "Artículo descargado: ");
+                } else {
+                    int code = response.code();
+                    String c = String.valueOf(code);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Lista>> call, Throwable t) {
+                Log.e(TAG, "Error:" + t.getCause());
+
+            }
+
+        });
+        showPopup();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.producto_por_codigo);
         ButterKnife.bind(this);
-
-
         //intializing scan object
         qrScan = new IntentIntegrator(this);
         qrScan.setBeepEnabled(false);
@@ -136,10 +180,12 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             public void onResponse(Call<com.preciosclaros.Response> call, Response<com.preciosclaros.Response> response) {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
+                    mejorProducto = received;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg").into(imgProducto);
                     precioProducto.setText("$"+response.body().getMejorPrecio());
                     nombreProducto.setText(received.getNombre());
                     ArrayList<Sucursales> sucursales = response.body().getProductos();
+                    mejorSucursal = sucursales.get(0);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     SucursalesAdapter adapter = new SucursalesAdapter(sucursales);
@@ -270,4 +316,75 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             }
         }
     }
+    public void showPopup(){
+        try {
+// We need to get the instance of the LayoutInflater
+            LayoutInflater inflater = getLayoutInflater();
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.agregar_producto,
+                    (ViewGroup) findViewById(R.id.agregar_prod));
+
+            String[] valores ={"lista 1","lista 2","llsta 3"};
+            spinner = (Spinner) layout.findViewById(R.id.select);
+            spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
+                {
+                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+                    // vacio
+
+                }
+            });
+            pw = new PopupWindow(layout, 900,500, true);
+            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            cantidad = (EditText) layout.findViewById(R.id.Cantidad);
+            Close = (Button) layout.findViewById(R.id.btnCerrarProducto);
+            Close.setOnClickListener(cancel_button);
+            CrearProd = (Button) layout.findViewById(R.id.btnAgregarProducto);
+            CrearProd.setOnClickListener(agregar_producto_lista);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private View.OnClickListener cancel_button = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            pw.dismiss();
+        }
+    };
+    private View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
+        public void onClick(View v) {
+            Call<Lista> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId());
+            requestLista.enqueue(new Callback<Lista>() {
+                @Override
+                public void onResponse(Call<Lista> call, Response<Lista> response) {
+                    if (response.isSuccessful()) {
+                        Lista received = response.body();
+                        Log.i(TAG, "Artículo descargado: ");
+                    } else {
+                        int code = response.code();
+                        String c = String.valueOf(code);
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<Lista> call, Throwable t) {
+                    Log.e(TAG, "Error:" + t.getCause());
+
+                }
+
+            });
+           pw.dismiss();
+
+        }
+    };
 }

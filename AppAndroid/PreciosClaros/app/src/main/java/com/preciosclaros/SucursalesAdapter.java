@@ -1,11 +1,19 @@
 package com.preciosclaros;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
@@ -15,6 +23,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.preciosclaros.R.id.parent;
 
 /**
  * Created by lucas on 15/6/2017.
@@ -24,6 +35,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
     private List<Sucursales> sucursales = new ArrayList<Sucursales>();
 
     public SucursalesAdapter(List<Sucursales> sucursales) {
+
         this.sucursales = sucursales;
     }
 
@@ -38,10 +50,8 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
 
         return new SucursalesAdapter.ViewHolder(itemLayoutView);
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-
         Sucursales sucursal = this.sucursales.get(position);
 
         holder.distancia.setText(sucursal.getDistanciaDescripcion());
@@ -51,26 +61,35 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         holder.localidad.setText(sucursal.getLocalidad());
         Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(holder.imgComercio);
 
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final View item;
+       /* @OnClick(R.id.agregar)public void agregarProd(){
 
+            }*/
         @BindView(R.id.distancia)
         TextView distancia;
-        @BindView(R.id.nombreComercio) TextView nombreComercio;
-        @BindView(R.id.direccion) TextView direccion;
-        @BindView(R.id.precio) TextView precio;
-        @BindView(R.id.localidad) TextView localidad;
-        @BindView(R.id.imgComercio) ImageView imgComercio;
+        @BindView(R.id.nombreComercio)
+        TextView nombreComercio;
+        @BindView(R.id.direccion)
+        TextView direccion;
+        @BindView(R.id.precio)
+        TextView precio;
+        @BindView(R.id.localidad)
+        TextView localidad;
+        @BindView(R.id.imgComercio)
+        ImageView imgComercio;
+
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
             ButterKnife.bind(this, itemView);
         }
+
     }
 }
 /*

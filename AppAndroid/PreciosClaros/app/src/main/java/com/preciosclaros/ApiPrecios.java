@@ -29,6 +29,9 @@ public interface ApiPrecios {
     Call<Usuario> getUsuario(@Query("idGoogle") String id);
     @POST("Usuarios/Login")
     Call<Usuario> loginUsuario(@Body Usuario user);
+    @POST("Listas/AgregarProducto")
+    Call<Lista> AgregarProducto(@Query ("idLista") int id, @Query("idArticulo") String idArticulo, @Query("cantidad") int cantidad,
+                                @Query("precioOptimo") int preciOptimo, @Query("idComercio") String idComercio);
     @GET("items/{itemId}")
     Call<Article> getArticle(@Path("itemId") String id );
 }
