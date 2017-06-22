@@ -21,6 +21,8 @@ public interface ApiPrecios {
     @Headers("Content-Type: application/json")
     @GET("Productos/ObtenerProductoPorId")
     Call<Response> getProducto(@Query ("codigo") String id ,@Query("lat") double latitud,@Query("lng") double longitud);
+    @GET("Productos/BuscarProductos")
+    Call<ArrayList<Producto>> BuscarProductos(@Query ("buscar") String buscar ,@Query("lat") double latitud,@Query("lng") double longitud);
     @GET("Listas/ObtenerListas")
     Call<ArrayList<Lista>> getListas(@Query ("idUsuario") int id );
     @POST("Listas/CrearLista")

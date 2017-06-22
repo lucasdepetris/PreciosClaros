@@ -25,7 +25,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.preciosclaros.R.id.distancia;
 import static com.preciosclaros.R.id.parent;
+import static com.preciosclaros.R.id.recycler;
 
 /**
  * Created by lucas on 15/6/2017.
@@ -38,6 +40,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
 
         this.sucursales = sucursales;
     }
+    public List<Sucursales> getSucursales(){return this.sucursales;}
 
     @Override
     public int getItemCount() {
@@ -46,14 +49,14 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.producto_sucursal, null);
 
+       View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.producto_sucursal, null);
+        itemLayoutView.findViewById(R.id.agregar).setOnClickListener(mOnClickListener);
         return new SucursalesAdapter.ViewHolder(itemLayoutView);
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Sucursales sucursal = this.sucursales.get(position);
-
         holder.distancia.setText(sucursal.getDistanciaDescripcion());
         holder.nombreComercio.setText(sucursal.getBanderaDescripcion());
         holder.direccion.setText(sucursal.getDireccion());
@@ -62,6 +65,15 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(holder.imgComercio);
 
     }
+    public final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(final View view) {
+            
+            List<Sucursales> sucs = getSucursales();
+            Toast.makeText(view.getContext(),"hola", Toast.LENGTH_LONG).show();
+        }
+    };
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

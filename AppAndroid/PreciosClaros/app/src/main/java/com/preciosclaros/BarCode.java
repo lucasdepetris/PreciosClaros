@@ -359,7 +359,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             pw.dismiss();
         }
     };
-    private View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
+    private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
             Call<Lista> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId());
             requestLista.enqueue(new Callback<Lista>() {
