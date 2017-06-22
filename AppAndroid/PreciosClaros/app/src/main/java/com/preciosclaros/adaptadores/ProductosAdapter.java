@@ -7,9 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.preciosclaros.Producto;
+import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.R;
-import com.preciosclaros.modelo.Lista;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
     }
 
     @Override
-    public ProductosAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.productos, null);
         return new ProductosAdapter.ViewHolder(itemLayoutView);
     }
@@ -46,6 +45,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
         Producto producto = this.productos.get(position);
         holder.precioProducto.setText("$"+"precio");
         holder.descripcionProducto.setText(producto.getNombre());
+        Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/productos/"+producto.getId()+".jpg")
+                .placeholder(R.drawable.image_placeholder).error(R.drawable.no_image_aivalable).into(holder.imgProducto);
        // Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(holder.imgComercio);
     }
     public class ViewHolder extends RecyclerView.ViewHolder {

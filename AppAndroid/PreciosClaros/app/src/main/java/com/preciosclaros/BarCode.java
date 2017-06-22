@@ -40,8 +40,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.preciosclaros.adaptadores.ListasAdaptador;
+import com.preciosclaros.adaptadores.SucursalesAdapter;
 import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
@@ -60,8 +61,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.preciosclaros.R.id.parent;
 
 
 public class BarCode extends AppCompatActivity implements View.OnClickListener {
@@ -82,7 +81,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     private IntentIntegrator qrScan;
     public String id;
     ApiPrecios service;
-    public Call<com.preciosclaros.Response> requestCatalog;
+    public Call<com.preciosclaros.modelo.Response> requestCatalog;
     public Call<ArrayList<Lista>> requestListas;
     public Context context = this;
     public SharedPreferences sharedPreferences;
@@ -175,9 +174,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         }else {lati = 0.0; lng = 0.0;}
         //OBTENER UBICACION
         requestCatalog = service.getProducto(codigo, lati, lng);
-        requestCatalog.enqueue(new Callback<com.preciosclaros.Response>() {
+        requestCatalog.enqueue(new Callback<com.preciosclaros.modelo.Response>() {
             @Override
-            public void onResponse(Call<com.preciosclaros.Response> call, Response<com.preciosclaros.Response> response) {
+            public void onResponse(Call<com.preciosclaros.modelo.Response> call, Response<com.preciosclaros.modelo.Response> response) {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
                     mejorProducto = received;
@@ -201,7 +200,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<com.preciosclaros.Response> call, Throwable t) {
+            public void onFailure(Call<com.preciosclaros.modelo.Response> call, Throwable t) {
                 Log.e(TAG, "Error:" + t.getCause());
 
             }

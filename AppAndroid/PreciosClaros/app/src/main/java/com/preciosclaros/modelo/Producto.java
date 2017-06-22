@@ -1,4 +1,4 @@
-package com.preciosclaros;
+package com.preciosclaros.modelo;
 
 /**
  * Created by lucas on 11/6/2017.

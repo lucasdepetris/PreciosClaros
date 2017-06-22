@@ -4,15 +4,16 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp">
+        android:paddingTop="20dp">
 
         <ImageView
             android:id="@+id/imgProducto"
-            android:src="@drawable/ic_content_paste_black_48dp"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="100dp"
+            android:layout_height="80dp" />
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imgProducto"

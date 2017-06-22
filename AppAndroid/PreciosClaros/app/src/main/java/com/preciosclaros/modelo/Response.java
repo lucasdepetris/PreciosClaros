@@ -1,5 +1,6 @@
-package com.preciosclaros;
+package com.preciosclaros.modelo;
 
+import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.modelo.Sucursales;
 
 import java.util.ArrayList;

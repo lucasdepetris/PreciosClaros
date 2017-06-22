@@ -1,6 +1,8 @@
 package com.preciosclaros;
 
 import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Producto;
+import com.preciosclaros.modelo.Response;
 import com.preciosclaros.modelo.Usuario;
 
 import java.util.ArrayList;
@@ -20,11 +22,13 @@ import retrofit2.http.Query;
 public interface ApiPrecios {
     @Headers("Content-Type: application/json")
     @GET("Productos/ObtenerProductoPorId")
-    Call<Response> getProducto(@Query ("codigo") String id ,@Query("lat") double latitud,@Query("lng") double longitud);
+    Call<Response> getProducto(@Query ("codigo") String id , @Query("lat") double latitud, @Query("lng") double longitud);
     @GET("Productos/BuscarProductos")
-    Call<ArrayList<Producto>> BuscarProductos(@Query ("buscar") String buscar ,@Query("lat") double latitud,@Query("lng") double longitud);
+    Call<ArrayList<Producto>> BuscarProductos(@Query ("buscar") String buscar , @Query("lat") double latitud, @Query("lng") double longitud);
     @GET("Listas/ObtenerListas")
     Call<ArrayList<Lista>> getListas(@Query ("idUsuario") int id );
+    @GET("Listas/ObtenerLista")
+    Call<Lista> getLista(@Query ("idLista") int id );
     @POST("Listas/CrearLista")
     Call<Lista> putLista(@Query ("idUsuario") int id, @Query("nombre") String nombre, @Query("descripcion") String descripcion);
     @POST("Usuarios/ObtenerUsuarioPorIdGoogle")

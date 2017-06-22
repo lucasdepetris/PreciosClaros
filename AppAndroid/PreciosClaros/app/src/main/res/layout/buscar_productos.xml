@@ -3,22 +3,32 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+
+        android:gravity="center_horizontal"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:background="@color/white"
             android:id="@+id/ProductoBuscar"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content" />
-        <Button
-            android:layout_below="@+id/ProductoBuscar"
+        <ImageView
+            android:paddingLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_search_white_24dp"
+            android:layout_toRightOf="@id/ProductoBuscar"
             android:id="@+id/BuscarProductosBtn"
-            android:text="Buscar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
    <android.support.v7.widget.RecyclerView
+       android:clickable="true"
        android:id="@+id/ReciclerProductos"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">

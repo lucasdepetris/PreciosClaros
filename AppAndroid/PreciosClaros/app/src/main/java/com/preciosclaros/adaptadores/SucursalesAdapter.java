@@ -1,20 +1,14 @@
-package com.preciosclaros;
+package com.preciosclaros.adaptadores;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.preciosclaros.R;
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
@@ -23,11 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-import static com.preciosclaros.R.id.distancia;
-import static com.preciosclaros.R.id.parent;
-import static com.preciosclaros.R.id.recycler;
 
 /**
  * Created by lucas on 15/6/2017.

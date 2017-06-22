@@ -1,7 +1,5 @@
 package com.preciosclaros.modelo;
 
-import com.preciosclaros.PreciosProducto;
-
 /**
  * Created by lucas on 14/6/2017.
  */
