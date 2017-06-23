@@ -1,11 +1,6 @@
 package com.preciosclaros;
 
-/**
- * Created by lucas on 4/6/2017.
- */
-
-
-import android.Manifest;
+import android.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,10 +34,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.preciosclaros.adaptadores.SucursalesAdapter;
 import com.preciosclaros.modelo.Listas;
 import com.preciosclaros.modelo.Producto;
+import com.preciosclaros.modelo.Response;
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
@@ -58,21 +53,25 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Created by lucas on 23/6/2017.
+ */
 
-public class BarCode extends AppCompatActivity implements View.OnClickListener {
+public class VerProductoPorId extends AppCompatActivity {
     public final String TAG = "";
     //View Objects
     private PopupWindow pw;
     EditText cantidad;
     Spinner spinner;
     public Button Close,CrearProd;
-    @BindView(R.id.MejorNombre) TextView nombreProducto;
+    @BindView(R.id.MejorNombre)
+    TextView nombreProducto;
     @BindView(R.id.MejorPrecio) TextView precioProducto;
-    @BindView(R.id.MejorImgProducto) ImageView imgProducto;
+    @BindView(R.id.MejorImgProducto)
+    ImageView imgProducto;
     @BindView(R.id.recycler)
     RecyclerView recyclerView;
     Producto mejorProducto;
@@ -81,7 +80,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     private IntentIntegrator qrScan;
     public String id;
     ApiPrecios service;
-    public Call<com.preciosclaros.modelo.Response> requestCatalog;
+    public Call<Response> requestCatalog;
     public Call<ArrayList<Listas>> requestListas;
     public Context context = this;
     public SharedPreferences sharedPreferences;
@@ -112,47 +111,21 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         });
         showPopup();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.producto_por_codigo);
         ButterKnife.bind(this);
-        //intializing scan object
-        qrScan = new IntentIntegrator(this);
-        qrScan.setBeepEnabled(false);
-        //attaching onclick listener
-        qrScan.initiateScan();
+        Intent intent = getIntent();
+        buscarProducto(intent.getStringExtra("idProducto"));
 
     }
-    //Getting the scan results
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            //if qrcode has nothing in it
-            if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            } else {
-                //if qr contains data
-                buscarProducto(result.getContents());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        //initiating the qr code scan
-        qrScan.initiateScan();
-    }
-
     public void buscarProducto(final String codigo) {
         //OBTENER UBICACION
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
         } else {
             locationStart();
         }
@@ -176,7 +149,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         requestCatalog = service.getProducto(codigo, lati, lng);
         requestCatalog.enqueue(new Callback<com.preciosclaros.modelo.Response>() {
             @Override
-            public void onResponse(Call<com.preciosclaros.modelo.Response> call, Response<com.preciosclaros.modelo.Response> response) {
+            public void onResponse(Call<com.preciosclaros.modelo.Response> call, retrofit2.Response<Response> response) {
                 if (response.isSuccessful()) {
                     Producto received = response.body().getProducto();
                     mejorProducto = received;
@@ -191,7 +164,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     SucursalesAdapter adapter = new SucursalesAdapter(sucursales);
-                   // lista =(ListView) findViewById(R.id.listaProductoSucursales);
+                    // lista =(ListView) findViewById(R.id.listaProductoSucursales);
                     recyclerView.setAdapter(adapter);
                     Log.i(TAG, "Artículo descargado: ");
                 } else {
@@ -212,15 +185,15 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     }
     private void locationStart() {
         LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Localizacion Local = new Localizacion();
+        VerProductoPorId.Localizacion Local = new VerProductoPorId.Localizacion();
         Local.setMainActivity(this);
         final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!gpsEnabled) {
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
         }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
         mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
@@ -259,13 +232,13 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     }
     /* Aqui empieza la Clase Localizacion */
     public class Localizacion implements LocationListener {
-        BarCode mainActivity;
+        VerProductoPorId mainActivity;
 
-        public BarCode getMainActivity() {
+        public VerProductoPorId getMainActivity() {
             return mainActivity;
         }
 
-        public void setMainActivity(BarCode mainActivity) {
+        public void setMainActivity(VerProductoPorId mainActivity) {
             this.mainActivity = mainActivity;
         }
 
@@ -363,10 +336,10 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     };
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
-            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-");
+            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId());
             requestLista.enqueue(new Callback<Listas>() {
                 @Override
-                public void onResponse(Call<Listas> call, Response<Listas> response) {
+                public void onResponse(Call<Listas> call, retrofit2.Response<Listas> response) {
                     if (response.isSuccessful()) {
                         Listas received = response.body();
                         Log.i(TAG, "Artículo descargado: ");
@@ -385,7 +358,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 }
 
             });
-           pw.dismiss();
+            pw.dismiss();
 
         }
     };

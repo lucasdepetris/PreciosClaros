@@ -28,6 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MostrarLista"></activity>
+        <activity android:name=".VerProductoPorId"></activity>
         <activity android:name=".BuscarProductos"></activity>
         <activity android:name=".MisListas"></activity>
         <activity android:name=".BarCode"></activity>

@@ -3,20 +3,23 @@ package com.preciosclaros.modelo;
 import java.util.ArrayList;
 
 /**
- * Created by lucas on 23/6/2017.
+ * Created by lucas on 19/6/2017.
  */
 
-public class Lista {
-    /*"id": 9,
-  "Nombre": "lista 1",
-  "Descripcion": "bebidas de lucas",
-  "Items"*/
+public class Listas {
     private int id;
-    private  String Nombre;
-    private  String Descripcion;
-    ArrayList<Items> Items = new ArrayList<Items>();
+    private String Nombre;
+    private String Descripcion;
+
+
+    public Listas(int id, String nombre, String descripcion) {
+        this.id = id;
+        Nombre = nombre;
+        Descripcion = descripcion;
+    }
 
     public int getId() {
+
         return id;
     }
 
@@ -38,13 +41,5 @@ public class Lista {
 
     public void setDescripcion(String descripcion) {
         Descripcion = descripcion;
-    }
-
-    public ArrayList<com.preciosclaros.modelo.Items> getItems() {
-        return Items;
-    }
-
-    public void setItems(ArrayList<com.preciosclaros.modelo.Items> items) {
-        Items = items;
     }
 }

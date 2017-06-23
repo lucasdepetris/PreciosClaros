@@ -1,12 +1,20 @@
 package com.preciosclaros.adaptadores;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.preciosclaros.BuscarProductos;
+import com.preciosclaros.HomeActivity;
+import com.preciosclaros.MisListas;
+import com.preciosclaros.VerProductoPorId;
 import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.R;
 import com.squareup.picasso.Picasso;
@@ -24,7 +32,7 @@ import butterknife.ButterKnife;
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ViewHolder> {
 
     private List<Producto> productos = new ArrayList<Producto>();
-
+    private Context context;
     public ProductosAdapter(List<Producto> productos) {
         this.productos = productos;
     }
@@ -42,12 +50,19 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
 
     @Override
     public void onBindViewHolder(ProductosAdapter.ViewHolder holder, int position) {
-        Producto producto = this.productos.get(position);
+        final Producto producto = this.productos.get(position);
         holder.precioProducto.setText("$"+"precio");
         holder.descripcionProducto.setText(producto.getNombre());
         Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/productos/"+producto.getId()+".jpg")
                 .placeholder(R.drawable.image_placeholder).error(R.drawable.no_image_aivalable).into(holder.imgProducto);
-       // Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg").into(holder.imgComercio);
+        holder.imgProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, VerProductoPorId.class);
+                intent.putExtra("idProducto",producto.getId());
+                context.startActivity(intent);
+            }
+        });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -61,6 +76,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;
+            context = itemView.getContext();
             ButterKnife.bind(this, itemView);
         }
     }

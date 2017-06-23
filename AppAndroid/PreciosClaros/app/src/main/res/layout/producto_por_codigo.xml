@@ -9,9 +9,8 @@
         <ImageView
             android:minWidth="120dp"
             android:id="@+id/MejorImgProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_dialog_email"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"/>
         <TextView
             android:text="Gaseosa Coca Cola x 1.5 Lt"

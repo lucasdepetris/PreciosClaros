@@ -1,13 +1,16 @@
 package com.preciosclaros.adaptadores;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.preciosclaros.MostrarLista;
 import com.preciosclaros.R;
-import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Listas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +24,9 @@ import butterknife.ButterKnife;
 
 public class ListasAdaptador extends RecyclerView.Adapter<ListasAdaptador.ViewHolder> {
 
-    private List<Lista> listas = new ArrayList<Lista>();
+    private List<Listas> listas = new ArrayList<Listas>();
 
-    public ListasAdaptador(List<Lista> listas) {
+    public ListasAdaptador(List<Listas> listas) {
         this.listas = listas;
     }
 
@@ -41,9 +44,17 @@ public class ListasAdaptador extends RecyclerView.Adapter<ListasAdaptador.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Lista lista = this.listas.get(position);
+        final Listas lista = this.listas.get(position);
         holder.NombreLista.setText(lista.getNombre());
         holder.Descripcion.setText(lista.getDescripcion());
+        holder.imgLista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MostrarLista.class);
+                intent.putExtra("idLista",lista.getId());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,7 +63,8 @@ public class ListasAdaptador extends RecyclerView.Adapter<ListasAdaptador.ViewHo
         @BindView(R.id.NombreLista)
         TextView NombreLista;
         @BindView(R.id.DescripcionLista) TextView Descripcion;
-
+        @BindView(R.id.imgLista)
+        ImageView imgLista;
         public ViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;

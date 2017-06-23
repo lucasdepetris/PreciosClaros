@@ -19,8 +19,8 @@ public class Productos {
           */
     private Producto producto;
     private int Cantidad;
-    private DecimalFormat precioOptimo;
-    private DecimalFormat precioReal;
+   // private DecimalFormat precioOptimo;
+    //private DecimalFormat precioReal;
 
     public Producto getProducto() {
         return producto;
@@ -38,7 +38,7 @@ public class Productos {
         Cantidad = cantidad;
     }
 
-    public DecimalFormat getPrecioOptimo() {
+    /*public DecimalFormat getPrecioOptimo() {
         return precioOptimo;
     }
 
@@ -52,5 +52,5 @@ public class Productos {
 
     public void setPrecioReal(DecimalFormat precioReal) {
         this.precioReal = precioReal;
-    }
+    }*/
 }

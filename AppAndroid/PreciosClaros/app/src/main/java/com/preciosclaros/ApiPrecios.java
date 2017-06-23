@@ -1,6 +1,7 @@
 package com.preciosclaros;
 
 import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Listas;
 import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.modelo.Response;
 import com.preciosclaros.modelo.Usuario;
@@ -26,18 +27,18 @@ public interface ApiPrecios {
     @GET("Productos/BuscarProductos")
     Call<ArrayList<Producto>> BuscarProductos(@Query ("buscar") String buscar , @Query("lat") double latitud, @Query("lng") double longitud);
     @GET("Listas/ObtenerListas")
-    Call<ArrayList<Lista>> getListas(@Query ("idUsuario") int id );
+    Call<ArrayList<Listas>> getListas(@Query ("idUsuario") int id );
     @GET("Listas/ObtenerLista")
     Call<Lista> getLista(@Query ("idLista") int id );
     @POST("Listas/CrearLista")
-    Call<Lista> putLista(@Query ("idUsuario") int id, @Query("nombre") String nombre, @Query("descripcion") String descripcion);
+    Call<Listas> putLista(@Query ("idUsuario") int id, @Query("nombre") String nombre, @Query("descripcion") String descripcion);
     @POST("Usuarios/ObtenerUsuarioPorIdGoogle")
     Call<Usuario> getUsuario(@Query("idGoogle") String id);
     @POST("Usuarios/Login")
     Call<Usuario> loginUsuario(@Body Usuario user);
     @POST("Listas/AgregarProducto")
-    Call<Lista> AgregarProducto(@Query ("idLista") int id, @Query("idArticulo") String idArticulo, @Query("cantidad") int cantidad,
-                                @Query("precioOptimo") int preciOptimo, @Query("idComercio") String idComercio);
+    Call<Listas> AgregarProducto(@Query ("idLista") int id, @Query("idArticulo") String idArticulo, @Query("cantidad") int cantidad,
+                                 @Query("precioOptimo") int preciOptimo, @Query("idComercio") String idComercio);
     @GET("items/{itemId}")
     Call<Article> getArticle(@Path("itemId") String id );
 }

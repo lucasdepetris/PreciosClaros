@@ -6,11 +6,17 @@ import java.util.ArrayList;
  * Created by lucas on 22/6/2017.
  */
 
-public class Item {
+public class Items {
     private Comercio Comercio;
     private ArrayList<Productos> Productos;
 
+    public Items(com.preciosclaros.modelo.Comercio comercio, ArrayList<com.preciosclaros.modelo.Productos> productos) {
+        Comercio = comercio;
+        Productos = productos;
+    }
+
     public com.preciosclaros.modelo.Comercio getComercio() {
+
         return Comercio;
     }
 

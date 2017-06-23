@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/productoSucursal">
     <TextView
         android:id="@+id/distancia"
         android:text="0.30 kilometros"
@@ -11,9 +12,8 @@
     <ImageView
         android:layout_below="@id/distancia"
         android:id="@+id/imgComercio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_dialog_email"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
         android:layout_marginTop="10dp"/>
     <TextView
         android:layout_below="@id/distancia"

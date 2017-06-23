@@ -17,7 +17,7 @@ import android.widget.PopupWindow;
 
 import com.google.gson.Gson;
 import com.preciosclaros.adaptadores.ListasAdaptador;
-import com.preciosclaros.modelo.Lista;
+import com.preciosclaros.modelo.Listas;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class MisListas extends AppCompatActivity {
     public final String TAG = "";
     public Context ctx = this;
     ApiPrecios service;
-    public Call<ArrayList<Lista>> requestCatalog;
+    public Call<ArrayList<Listas>> requestCatalog;
     private static final String PREFER_NAME = "Reg";
     private SharedPreferences sharedPreferences;
     int id;
@@ -67,11 +67,11 @@ public class MisListas extends AppCompatActivity {
         service = retrofit.create(ApiPrecios.class);
         sharedPreferences = getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
         requestCatalog = service.getListas(sharedPreferences.getInt("id",id));
-        requestCatalog.enqueue(new Callback<ArrayList<Lista>>() {
+        requestCatalog.enqueue(new Callback<ArrayList<Listas>>() {
             @Override
-            public void onResponse(Call<ArrayList<Lista>> call, retrofit2.Response<ArrayList<Lista>> response) {
+            public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<Lista> listas = response.body();
+                    ArrayList<Listas> listas = response.body();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     ListasAdaptador adapter = new ListasAdaptador(listas);
@@ -87,7 +87,7 @@ public class MisListas extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Lista>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Listas>> call, Throwable t) {
                 Log.e(TAG, "Error:" + t.getCause());
 
             }
@@ -123,18 +123,18 @@ public class MisListas extends AppCompatActivity {
     private View.OnClickListener crear_lista = new View.OnClickListener() {
         public void onClick(View v) {
             sharedPreferences = getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
-            Call<Lista> requestCrear = service.putLista(sharedPreferences.getInt("id",id),nombre.getText().toString(),descripcion.getText().toString());
-            requestCrear.enqueue(new Callback<Lista>() {
+            Call<Listas> requestCrear = service.putLista(sharedPreferences.getInt("id",id),nombre.getText().toString(),descripcion.getText().toString());
+            requestCrear.enqueue(new Callback<Listas>() {
                 @Override
-                public void onResponse(Call<Lista> call, retrofit2.Response<Lista> response) {
+                public void onResponse(Call<Listas> call, retrofit2.Response<Listas> response) {
                     if(response.isSuccessful()){
                         sharedPreferences = getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
                         requestCatalog = service.getListas(sharedPreferences.getInt("id",id));
-                        requestCatalog.enqueue(new Callback<ArrayList<Lista>>() {
+                        requestCatalog.enqueue(new Callback<ArrayList<Listas>>() {
                             @Override
-                            public void onResponse(Call<ArrayList<Lista>> call, retrofit2.Response<ArrayList<Lista>> response) {
+                            public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
                                 if (response.isSuccessful()) {
-                                    ArrayList<Lista> listas = response.body();
+                                    ArrayList<Listas> listas = response.body();
                                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);
                                     recyclerView.setLayoutManager(linearLayoutManager);
                                     ListasAdaptador adapter = new ListasAdaptador(listas);
@@ -150,7 +150,7 @@ public class MisListas extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<ArrayList<Lista>> call, Throwable t) {
+                            public void onFailure(Call<ArrayList<Listas>> call, Throwable t) {
                                 Log.e(TAG, "Error:" + t.getCause());
 
                             }
@@ -164,7 +164,7 @@ public class MisListas extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Lista> call, Throwable t) {
+                public void onFailure(Call<Listas> call, Throwable t) {
 
                 }
             });
