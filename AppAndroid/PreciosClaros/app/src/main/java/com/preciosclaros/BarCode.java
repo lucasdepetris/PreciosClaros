@@ -87,7 +87,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @OnClick(R.id.agregarMejorPrecio)public void agregarProducto(){
-        requestListas = service.getListas(7);
+        sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
+        int idUser = 0;
+        requestListas = service.getListas(sharedPreferences.getInt("id",idUser));
         requestListas.enqueue(new Callback<ArrayList<Listas>>() {
             @Override
             public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {

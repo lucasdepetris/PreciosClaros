@@ -31,7 +31,6 @@ namespace ApiPrecios.Controllers
             var listas = listaServices.ObtenerListas(idUsuario).ToList();
             return Content(getResponse(listas), "application/json");
         }
-
         [HttpGet]
         public ContentResult ObtenerLista(int idLista)
         {
@@ -50,7 +49,12 @@ namespace ApiPrecios.Controllers
             var lista = listaServices.AgregarProducto(idLista,idArticulo,cantidad,precioOptimo,idComercio);
             return Content(getResponse(lista), "application/json");
         }
-
+        [HttpGet]
+        public ContentResult ModificarLista(int idLista, String nombre, String descripcion, int idUsuario)
+        {
+            var listas = listaServices.ModificarLista(idLista, nombre, descripcion, idUsuario);
+            return Content(getResponse(listas), "application/json");
+        }
         private string getResponse(object result)
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(result);

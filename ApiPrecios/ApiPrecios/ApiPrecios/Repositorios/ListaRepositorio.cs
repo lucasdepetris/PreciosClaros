@@ -60,5 +60,14 @@ namespace ApiPrecios.Repositorios
             DBPrecios db = new DBPrecios();
             return db.Listas.Where(l => l.id == id).FirstOrDefault();
         }
+        public bool ModificarLista(int idLista,String nombre, String descripcion)
+        {
+            DBPrecios db = new DBPrecios();
+            var lista = db.Listas.Where(l => l.id == idLista).FirstOrDefault();
+            lista.Nombre = nombre;
+            lista.Descripcion = descripcion;
+            db.SaveChanges();
+            return true;
+        }
     }
 }

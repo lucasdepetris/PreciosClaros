@@ -51,7 +51,8 @@ public class ProductosDeSucursalAdapter extends RecyclerView.Adapter<ProductosDe
         holder.descripcionProducto.setText(lista.getProducto().getNombre());
         String cant = String.valueOf(this.productos.get(position).getCantidad());
         holder.cantidad.setText(cant);
-
+        String precio = String.valueOf(this.productos.get(position).getPrecioOptimo());
+        holder.precioProducto.setText("$"+precio);
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 

@@ -14,5 +14,6 @@ namespace ApiPrecios.Repositorios.Abstracciones
         IEnumerable<Lista> ObtenerListas(int idUsuario);
         Lista ObtenerLista(int id);
         bool AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio);
+        bool ModificarLista(int idLista, String nombre, String descripcion);
     }
 }

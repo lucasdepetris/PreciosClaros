@@ -46,5 +46,10 @@ namespace ApiPrecios.Services
         {
             return ListasRepo.AgregarUsuarioLista(idGoogle, idLista);
         }
+        public IEnumerable<ListaCabecera> ModificarLista(int idLista, String nombre, String descripcion,int idUsuario)
+        {
+            ListasRepo.ModificarLista(idLista, nombre, descripcion);
+            return ObtenerListas(idUsuario);
+        }
     }
 }

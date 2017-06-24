@@ -19,9 +19,14 @@ public class Productos {
           */
     private Producto producto;
     private int Cantidad;
-   // private DecimalFormat precioOptimo;
-    //private DecimalFormat precioReal;
 
+    public Float getPrecioOptimo() {
+        return precioOptimo;
+    }
+
+    // private DecimalFormat precioOptimo;
+    //private DecimalFormat precioReal;
+    private Float precioOptimo;
     public Producto getProducto() {
         return producto;
     }
