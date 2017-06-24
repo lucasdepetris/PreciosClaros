@@ -77,7 +77,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     RecyclerView recyclerView;
     Producto mejorProducto;
     Sucursales mejorSucursal;
-    ArrayList<String> ListasId;
+    ArrayList<Listas> Ls;
     private IntentIntegrator qrScan;
     public String id;
     ApiPrecios service;
@@ -93,13 +93,18 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
                 if (response.isSuccessful()) {
                     ArrayList<Listas> listas = response.body();
-
+                    //Ls = listas;
+                      /*  int i =0;
+                        int cant = listas.size();
+                        for(i =0 ;i<=cant;i++)
+                        {
+                            ListasId.add(i,listas.get(i).getNombre());
+                        }*/
                     Log.i(TAG, "Artículo descargado: ");
                 } else {
                     int code = response.code();
                     String c = String.valueOf(code);
                 }
-
 
             }
 
@@ -325,8 +330,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.agregar_producto,
                     (ViewGroup) findViewById(R.id.agregar_prod));
-
-            String[] valores ={"lista 1","lista 2","llsta 3"};
+            String [] valores = {"lista 1","lista 2","lista 3"};
             spinner = (Spinner) layout.findViewById(R.id.select);
             spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -363,7 +367,10 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     };
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
-            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-");
+            //int c = Integer.parseInt(cantidad.getText().toString());
+            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(), 5,
+                                                                Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),
+                                                                mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-"+mejorSucursal.getId());
             requestLista.enqueue(new Callback<Listas>() {
                 @Override
                 public void onResponse(Call<Listas> call, Response<Listas> response) {

@@ -1,6 +1,8 @@
 package com.preciosclaros.adaptadores;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ import butterknife.ButterKnife;
 public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.ViewHolder> {
 
     private List<Sucursales> sucursales = new ArrayList<Sucursales>();
+    AlertDialog.Builder alertbox;
     private int Position;
    /* private PopupWindow popupWindow;
     EditText cantidad;
@@ -85,7 +88,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         return new SucursalesAdapter.ViewHolder(itemLayoutView);
     }
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         final Sucursales sucursal = this.sucursales.get(position);
         holder.distancia.setText(sucursal.getDistanciaDescripcion());
@@ -101,13 +104,12 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"hola"+sucursal.getBanderaDescripcion(), Toast.LENGTH_LONG).show();
-              //  showPopup(v);
+
 
             }
         });
 
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final View item;
@@ -128,7 +130,6 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         ImageView imgComercio;
         @BindView(R.id.agregar)
         ImageButton agregar;
-
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -336,7 +336,10 @@ public class VerProductoPorId extends AppCompatActivity {
     };
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
-            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),3, Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),mejorSucursal.getComercioId());
+            //int c = Integer.parseInt(cantidad.getText().toString());
+            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(),5,
+                    Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),
+                    mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-"+mejorSucursal.getId());
             requestLista.enqueue(new Callback<Listas>() {
                 @Override
                 public void onResponse(Call<Listas> call, retrofit2.Response<Listas> response) {
