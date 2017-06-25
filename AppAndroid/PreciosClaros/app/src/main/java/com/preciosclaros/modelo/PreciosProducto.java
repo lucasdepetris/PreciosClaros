@@ -8,17 +8,17 @@ import java.text.DecimalFormat;
  */
 
 public class PreciosProducto {
-    private String precioLista;
+    private Double precioLista;
 
-    public String getPrecioLista() {
+    public Double getPrecioLista() {
         return precioLista;
     }
 
-    public void setPrecioLista(String precioLista) {
+    public void setPrecioLista(Double precioLista) {
         this.precioLista = precioLista;
     }
 
-    public PreciosProducto(String precioLista) {
+    public PreciosProducto(Double precioLista) {
 
         this.precioLista = precioLista;
     }

@@ -20,7 +20,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.preciosclaros.BarCode;
 import com.preciosclaros.R;
+import com.preciosclaros.VerProductoPorId;
 import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
@@ -37,6 +39,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
 
     private List<Sucursales> sucursales = new ArrayList<Sucursales>();
     AlertDialog.Builder alertbox;
+    private Context mContext;
     private int Position;
    /* private PopupWindow popupWindow;
     EditText cantidad;
@@ -70,11 +73,16 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
             popupWindow.dismiss();
         }
     };*/
-    public SucursalesAdapter(List<Sucursales> sucursales) {
-
+    public SucursalesAdapter(List<Sucursales> sucursales, Context context) {
+        this.mContext = context;
         this.sucursales = sucursales;
     }
     public List<Sucursales> getSucursales(){return this.sucursales;}
+    /*
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }*/
 
     @Override
     public int getItemCount() {
@@ -104,7 +112,14 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"hola"+sucursal.getBanderaDescripcion(), Toast.LENGTH_LONG).show();
+                if(mContext instanceof BarCode){
 
+                    ((BarCode)mContext).showPopupAdaptador(sucursal);
+                }
+                if(mContext instanceof VerProductoPorId){
+
+                    ((VerProductoPorId)mContext).showPopupAdaptador(sucursal);
+                }
 
             }
         });

@@ -70,6 +70,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     EditText cantidad;
     Spinner spinner;
     public Button Close,CrearProd;
+    public Sucursales sucursalElegida;
     @BindView(R.id.MejorNombre) TextView nombreProducto;
     @BindView(R.id.MejorPrecio) TextView precioProducto;
     @BindView(R.id.MejorImgProducto) ImageView imgProducto;
@@ -83,6 +84,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     ApiPrecios service;
     public Call<com.preciosclaros.modelo.Response> requestCatalog;
     public Call<ArrayList<Listas>> requestListas;
+    Call<Listas> requestListaAdaptador;
     public Context context = this;
     public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -197,7 +199,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                     mejorSucursal = sucursales.get(0);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
-                    SucursalesAdapter adapter = new SucursalesAdapter(sucursales);
+                    SucursalesAdapter adapter = new SucursalesAdapter(sucursales,context);
                    // lista =(ListView) findViewById(R.id.listaProductoSucursales);
                     recyclerView.setAdapter(adapter);
                     Log.i(TAG, "Artículo descargado: ");
@@ -370,8 +372,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
             //int c = Integer.parseInt(cantidad.getText().toString());
+            int p =   mejorSucursal.getPreciosProducto().getPrecioLista().intValue();
             Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(), 5,
-                                                                Integer.parseInt(mejorSucursal.getPreciosProducto().getPrecioLista()),
+                                                                p,
                                                                 mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-"+mejorSucursal.getId());
             requestLista.enqueue(new Callback<Listas>() {
                 @Override
@@ -395,6 +398,82 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
 
             });
            pw.dismiss();
+
+        }
+    };
+    public void showPopupAdaptador( Sucursales sucursal){
+        try {
+// We need to get the instance of the LayoutInflater
+            LayoutInflater inflater = getLayoutInflater();
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.agregar_producto,
+                    (ViewGroup) findViewById(R.id.agregar_prod));
+            String [] valores = {"lista 1","lista 2","lista 3"};
+            spinner = (Spinner) layout.findViewById(R.id.select);
+            spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
+                {
+                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent)
+                {
+                    // vacio
+
+                }
+            });
+            sucursalElegida = sucursal;
+            pw = new PopupWindow(layout, 900,500, true);
+            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            cantidad = (EditText) layout.findViewById(R.id.Cantidad);
+            Close = (Button) layout.findViewById(R.id.btnCerrarProducto);
+            Close.setOnClickListener(cancel_button_adaptador);
+            CrearProd = (Button) layout.findViewById(R.id.btnAgregarProducto);
+
+            CrearProd.setOnClickListener(agregar_producto_lista_adaptador);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private View.OnClickListener cancel_button_adaptador = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            pw.dismiss();
+        }
+    };
+    private  View.OnClickListener agregar_producto_lista_adaptador = new View.OnClickListener() {
+        public void onClick(View v) {
+            //int c = Integer.parseInt(cantidad.getText().toString());
+            int p =   sucursalElegida.getPreciosProducto().getPrecioLista().intValue();
+            requestListaAdaptador = service.AgregarProducto(9,mejorProducto.getId().toString(), 5,
+                    p,
+                    sucursalElegida.getComercioId()+"-"+sucursalElegida.getBanderaId()+"-"+sucursalElegida.getId());
+            requestListaAdaptador.enqueue(new Callback<Listas>() {
+                @Override
+                public void onResponse(Call<Listas> call, Response<Listas> response) {
+                    if (response.isSuccessful()) {
+                        Listas received = response.body();
+                        Log.i(TAG, "Artículo descargado: ");
+                    } else {
+                        int code = response.code();
+                        String c = String.valueOf(code);
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<Listas> call, Throwable t) {
+                    Log.e(TAG, "Error:" + t.getCause());
+
+                }
+
+            });
+            pw.dismiss();
 
         }
     };
