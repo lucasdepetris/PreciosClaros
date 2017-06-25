@@ -75,7 +75,9 @@ namespace ApiPrecios.App_Start
             kernel.Bind<IUsuariosServices>().To<UsuariosServices>();
             kernel.Bind<IProductosServices>().To<ProductosServices>();
             kernel.Bind<IProductosRepositorio>().To<ProductosRepositorio>();
+            kernel.Bind<IPreciosRepositorio>().To<PreciosRepositorio>();
             kernel.Bind<IComerciosRepositorio>().To<ComerciosRepositorio>();
+            kernel.Bind<ICategoriasRepositorio>().To<CategoriasRepositorio>();
             kernel.Bind<IMapperListaLite>().To<MapperListaLite>();
         }        
     }

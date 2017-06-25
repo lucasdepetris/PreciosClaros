@@ -14,6 +14,21 @@ namespace ApiPrecios.Repositorios
         {
             buscar = buscar.ToLower();
             var buscarSplit = buscar.Split(' ');
+            
+            return buscarPorNombre(buscarSplit, buscar);
+        }
+        public bool ExisteProducto(string codigoProducto)
+        {
+            return db.Articulos.Any(a => a.id == codigoProducto);
+
+        }
+        public void AgregarProducto(Articulo articulo)
+        {
+            db.Articulos.Add(articulo);
+            db.SaveChanges();
+        }
+        private List<Articulo> buscarPorNombre(string[] buscarSplit, string buscar)
+        {
             var primarios = (from p in db.Articulos
                              where p.nombre.ToLower().Contains(buscar)
                              || p.marca.ToLower().Contains(buscar)
@@ -25,16 +40,6 @@ namespace ApiPrecios.Repositorios
             primarios.AddRange(secundarios);
 
             return primarios.Distinct().ToList();
-        }
-        public bool ExisteProducto(string codigoProducto)
-        {
-            return db.Articulos.Any(a => a.id == codigoProducto);
-
-        }
-        public void AgregarProducto(Articulo articulo)
-        {
-            db.Articulos.Add(articulo);
-            db.SaveChanges();
         }
     }
 }
