@@ -69,5 +69,28 @@ namespace ApiPrecios.Repositorios
             db.SaveChanges();
             return true;
         }
+        public bool ModificarCantidadDeUnProducto(int idLista, String idArticulo, int cantidad)
+        {
+            DBPrecios db = new DBPrecios();
+            var listaArticulo = db.ListaArticuloes.Where(l => l.idArticulo == idArticulo && l.idLista == idLista).First();
+            listaArticulo.Cantidad = cantidad;
+            db.SaveChanges();
+            return true;
+        }
+        public bool EliminarLista(int idLista)
+        {
+            DBPrecios db = new DBPrecios();
+            var lista = db.Listas.Where(l => l.id == idLista).First();
+            db.Listas.Remove(lista);
+            db.SaveChanges();
+            return true;
+        }
+        public bool EliminarProducto(String idArticulo, int idLista)
+        {
+            DBPrecios db = new DBPrecios();
+            var producto = db.ListaArticuloes.Where(l => l.idArticulo == idArticulo && l.idLista == idLista ).First();
+            db.ListaArticuloes.Remove(producto);
+            return true;
+        }
     }
 }

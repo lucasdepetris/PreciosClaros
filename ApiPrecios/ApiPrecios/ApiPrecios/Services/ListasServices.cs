@@ -51,5 +51,20 @@ namespace ApiPrecios.Services
             ListasRepo.ModificarLista(idLista, nombre, descripcion);
             return ObtenerListas(idUsuario);
         }
+        public ListaLite ModificarCantidadDeUnProducto(int idLista, String idArticulo, int cantidad)
+        {
+            ListasRepo.ModificarCantidadDeUnProducto(idLista, idArticulo, cantidad); 
+            return ObtenerLista(idLista);
+        }
+        public IEnumerable<ListaCabecera> EliminarLista(int idLista, int idUsuario)
+        {
+            ListasRepo.EliminarLista(idLista);
+            return ObtenerListas(idUsuario);
+        }
+        public ListaLite EliminarProducto(String idArticulo, int idLista)
+        {
+            ListasRepo.EliminarProducto(idArticulo, idLista);
+            return ObtenerLista(idLista);
+        }
     }
 }

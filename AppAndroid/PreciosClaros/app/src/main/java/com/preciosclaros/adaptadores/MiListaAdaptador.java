@@ -1,5 +1,6 @@
 package com.preciosclaros.adaptadores;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.preciosclaros.MostrarLista;
 import com.preciosclaros.R;
+import com.preciosclaros.SimpleDividerItemDecoration;
 import com.preciosclaros.modelo.Items;
 import com.preciosclaros.modelo.Lista;
 import com.preciosclaros.modelo.Listas;
@@ -29,8 +31,9 @@ import butterknife.ButterKnife;
 public class MiListaAdaptador extends RecyclerView.Adapter<MiListaAdaptador.ViewHolder> {
 
     private List<Items>items = new ArrayList<Items>();
-
-    public MiListaAdaptador(List<Items> items) {
+    private Context mContext;
+    public MiListaAdaptador(List<Items> items, Context context) {
+        this.mContext = context;
         this.items = items;
     }
 
@@ -57,7 +60,10 @@ public class MiListaAdaptador extends RecyclerView.Adapter<MiListaAdaptador.View
         holder.NombreSucursal.setText(item.getComercio().getBanderaDescripcion());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(holder.productosDeSucursal.getContext());
         holder.productosDeSucursal.setLayoutManager(linearLayoutManager);
-        ProductosDeSucursalAdapter adapter = new ProductosDeSucursalAdapter(item.getProductos());
+        holder.productosDeSucursal.addItemDecoration(new SimpleDividerItemDecoration(
+                holder.productosDeSucursal.getContext()
+        ));
+        ProductosDeSucursalAdapter adapter = new ProductosDeSucursalAdapter(item.getProductos(),mContext);
         holder.productosDeSucursal.setAdapter(adapter);
 
     }

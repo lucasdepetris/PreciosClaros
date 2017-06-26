@@ -104,7 +104,7 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         holder.direccion.setText(sucursal.getDireccion());
         holder.precio.setText("$"+sucursal.getPreciosProducto().getPrecioLista());
         holder.localidad.setText(sucursal.getLocalidad());
-        Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-1.jpg")
+        Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-"+sucursal.getBanderaId()+".jpg")
                 .placeholder(R.drawable.image_placeholder)
                 .error(R.drawable.no_image_aivalable)
                 .into(holder.imgComercio);

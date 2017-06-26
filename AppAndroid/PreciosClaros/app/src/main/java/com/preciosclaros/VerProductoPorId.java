@@ -42,6 +42,7 @@ import com.preciosclaros.modelo.Sucursales;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -77,6 +78,8 @@ public class VerProductoPorId extends AppCompatActivity {
     RecyclerView recyclerView;
     Producto mejorProducto;
     Sucursales mejorSucursal;
+    ArrayList<Listas> ls;
+    public String[] select;
     ArrayList<String> ListasId;
     private IntentIntegrator qrScan;
     public String id;
@@ -88,31 +91,7 @@ public class VerProductoPorId extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     @OnClick(R.id.agregarMejorPrecio)public void agregarProducto(){
-        sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
-        int idUser = 0;
-        requestListas = service.getListas(sharedPreferences.getInt("id",idUser));
-        requestListas.enqueue(new Callback<ArrayList<Listas>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
-                if (response.isSuccessful()) {
-                    ArrayList<Listas> listas = response.body();
 
-                    Log.i(TAG, "Artículo descargado: ");
-                } else {
-                    int code = response.code();
-                    String c = String.valueOf(code);
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<Listas>> call, Throwable t) {
-                Log.e(TAG, "Error:" + t.getCause());
-
-            }
-
-        });
         showPopup();
     }
 
@@ -167,6 +146,9 @@ public class VerProductoPorId extends AppCompatActivity {
                     mejorSucursal = sucursales.get(0);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
+                            getApplicationContext()
+                    ));
                     SucursalesAdapter adapter = new SucursalesAdapter(sucursales,context);
                     // lista =(ListView) findViewById(R.id.listaProductoSucursales);
                     recyclerView.setAdapter(adapter);
@@ -303,7 +285,37 @@ public class VerProductoPorId extends AppCompatActivity {
             View layout = inflater.inflate(R.layout.agregar_producto,
                     (ViewGroup) findViewById(R.id.agregar_prod));
 
-            String[] valores ={"lista 1","lista 2","llsta 3"};
+            sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
+            int idUser = 0;
+            requestListas = service.getListas(sharedPreferences.getInt("id",idUser));
+            requestListas.enqueue(new Callback<ArrayList<Listas>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
+                    if (response.isSuccessful()) {
+                        ArrayList<Listas> listas = response.body();
+                        ls = listas;
+                  /*  int i =0;
+                    for (Listas Nombre :listas) {
+                        select[i] = Nombre.getNombre();
+                        i++;
+                    }*/
+                        Log.i(TAG, "Artículo descargado: ");
+                    } else {
+                        int code = response.code();
+                        String c = String.valueOf(code);
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Listas>> call, Throwable t) {
+                    Log.e(TAG, "Error:" + t.getCause());
+
+                }
+
+            });
+            String[] valores ={ls.get(0).getNombre(),ls.get(1).getNombre()};
             spinner = (Spinner) layout.findViewById(R.id.select);
             spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -340,9 +352,9 @@ public class VerProductoPorId extends AppCompatActivity {
     };
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
-            //int c = Integer.parseInt(cantidad.getText().toString());
+            int c = Integer.parseInt(cantidad.getText().toString());
             int p =   mejorSucursal.getPreciosProducto().getPrecioLista().intValue();
-            Call<Listas> requestLista = service.AgregarProducto(15,mejorProducto.getId().toString(), 5,
+            Call<Listas> requestLista = service.AgregarProducto(15,mejorProducto.getId().toString(), c,
                     p, mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-"+mejorSucursal.getId());
             requestLista.enqueue(new Callback<Listas>() {
                 @Override
@@ -415,9 +427,9 @@ public class VerProductoPorId extends AppCompatActivity {
     };
     private  View.OnClickListener agregar_producto_lista_adaptador = new View.OnClickListener() {
         public void onClick(View v) {
-            //int c = Integer.parseInt(cantidad.getText().toString());
+            int c = Integer.parseInt(cantidad.getText().toString());
             int p =   sucursalElegida.getPreciosProducto().getPrecioLista().intValue();
-            requestListaAdaptador = service.AgregarProducto(15,mejorProducto.getId().toString(), 5,
+            requestListaAdaptador = service.AgregarProducto(15,mejorProducto.getId().toString(), c,
                     p,
                     sucursalElegida.getComercioId()+"-"+sucursalElegida.getBanderaId()+"-"+sucursalElegida.getId());
             requestListaAdaptador.enqueue(new Callback<Listas>() {

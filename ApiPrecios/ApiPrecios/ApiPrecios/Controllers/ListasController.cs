@@ -55,6 +55,24 @@ namespace ApiPrecios.Controllers
             var listas = listaServices.ModificarLista(idLista, nombre, descripcion, idUsuario);
             return Content(getResponse(listas), "application/json");
         }
+        [HttpGet]
+        public ContentResult ModificarCantidadDeUnProducto(int idLista, String idArticulo, int cantidad)
+        {
+            var lista = listaServices.ModificarCantidadDeUnProducto(idLista, idArticulo, cantidad);
+            return Content(getResponse(lista), "application/json");
+        }
+        [HttpGet]
+        public ContentResult EliminarLista(int idLista, int idUsuario)
+        {
+            var listas = listaServices.EliminarLista(idLista, idUsuario);
+            return Content(getResponse(listas), "application/json");
+        }
+        [HttpGet]
+        public ContentResult EliminarProducto(String idArticulo, int idLista)
+        {
+            var lista = listaServices.EliminarProducto(idArticulo, idLista);
+            return Content(getResponse(lista), "application/json");
+        }
         private string getResponse(object result)
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(result);

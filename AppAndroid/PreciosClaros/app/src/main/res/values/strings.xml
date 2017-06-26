@@ -9,4 +9,5 @@
     <string name="Cant">Cant</string>
     <string name="Precio">Precio</string>
     <string name="Gastado">Gastado</string>
+    <string name="Eliminar">¿Estas seguro que deseas eliminarlo?</string>
 </resources>

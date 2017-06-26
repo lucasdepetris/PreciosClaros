@@ -10,6 +10,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:textStyle="bold"
             android:textSize="25dp"
             android:id="@+id/VerNombreLista"
             android:paddingTop="20dp"

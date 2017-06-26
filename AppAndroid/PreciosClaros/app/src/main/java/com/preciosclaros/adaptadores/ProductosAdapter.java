@@ -55,14 +55,22 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
         holder.descripcionProducto.setText(producto.getNombre());
         Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/productos/"+producto.getId()+".jpg")
                 .placeholder(R.drawable.image_placeholder).error(R.drawable.no_image_aivalable).into(holder.imgProducto);
-        holder.imgProducto.setOnClickListener(new View.OnClickListener() {
+       /* holder.imgProducto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VerProductoPorId.class);
                 intent.putExtra("idProducto",producto.getId());
                 context.startActivity(intent);
             }
-        });
+        });*/
+       holder.contenedor.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(context, VerProductoPorId.class);
+               intent.putExtra("idProducto",producto.getId());
+               context.startActivity(intent);
+           }
+       });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -72,7 +80,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
         ImageView imgProducto;
         @BindView(R.id.precioProducto) TextView precioProducto;
         @BindView(R.id.descripcionProducto) TextView descripcionProducto;
-
+        @BindView(R.id.cont_buscarProductos)RelativeLayout contenedor;
         public ViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;

@@ -16,5 +16,8 @@ namespace ApiPrecios.Services.Abstracciones
         ListaLite ObtenerLista(int idLista);
         ListaLite AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio);
         IEnumerable<ListaCabecera> ModificarLista(int idLista,String nombre, String descripcion ,int idUsuario);
+        ListaLite ModificarCantidadDeUnProducto(int idLista, String idArticulo, int cantidad);
+        IEnumerable<ListaCabecera> EliminarLista(int idLista ,int idUsuario);
+        ListaLite EliminarProducto(String idArticulo,int idLista);
     }
 }

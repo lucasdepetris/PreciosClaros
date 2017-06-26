@@ -15,5 +15,8 @@ namespace ApiPrecios.Repositorios.Abstracciones
         Lista ObtenerLista(int id);
         bool AgregarProducto(int idLista, string idArticulo, int cantidad, int precioOptimo, string idComercio);
         bool ModificarLista(int idLista, String nombre, String descripcion);
+        bool ModificarCantidadDeUnProducto(int idLista,String idArticulo, int cantidad);
+        bool EliminarLista(int idLista);
+        bool EliminarProducto(String idArticulo, int idLista);
     }
 }

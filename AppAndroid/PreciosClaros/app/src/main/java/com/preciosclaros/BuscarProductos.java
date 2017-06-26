@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -95,10 +96,14 @@ public class BuscarProductos extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Producto>> call, retrofit2.Response<ArrayList<Producto>> response) {
                 if (response.isSuccessful()) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     ArrayList<Producto> received = response.body();
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
+                            getApplicationContext()
+                    ));
                     ProductosAdapter adapter = new ProductosAdapter(received);
                     // lista =(ListView) findViewById(R.id.listaProductoSucursales);
                     recyclerView.setAdapter(adapter);

@@ -199,6 +199,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                     mejorSucursal = sucursales.get(0);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
                     recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.addItemDecoration(new SimpleDividerItemDecoration(
+                            getApplicationContext()
+                    ));
                     SucursalesAdapter adapter = new SucursalesAdapter(sucursales,context);
                    // lista =(ListView) findViewById(R.id.listaProductoSucursales);
                     recyclerView.setAdapter(adapter);
@@ -371,9 +374,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     };
     private  View.OnClickListener agregar_producto_lista = new View.OnClickListener() {
         public void onClick(View v) {
-            //int c = Integer.parseInt(cantidad.getText().toString());
+            int c = Integer.parseInt(cantidad.getText().toString());
             int p =   mejorSucursal.getPreciosProducto().getPrecioLista().intValue();
-            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(), 5,
+            Call<Listas> requestLista = service.AgregarProducto(9,mejorProducto.getId().toString(), c,
                                                                 p,
                                                                 mejorSucursal.getComercioId()+"-"+mejorSucursal.getBanderaId()+"-"+mejorSucursal.getId());
             requestLista.enqueue(new Callback<Listas>() {
@@ -447,9 +450,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
     };
     private  View.OnClickListener agregar_producto_lista_adaptador = new View.OnClickListener() {
         public void onClick(View v) {
-            //int c = Integer.parseInt(cantidad.getText().toString());
+            int c = Integer.parseInt(cantidad.getText().toString());
             int p =   sucursalElegida.getPreciosProducto().getPrecioLista().intValue();
-            requestListaAdaptador = service.AgregarProducto(9,mejorProducto.getId().toString(), 5,
+            requestListaAdaptador = service.AgregarProducto(9,mejorProducto.getId().toString(), c,
                     p,
                     sucursalElegida.getComercioId()+"-"+sucursalElegida.getBanderaId()+"-"+sucursalElegida.getId());
             requestListaAdaptador.enqueue(new Callback<Listas>() {

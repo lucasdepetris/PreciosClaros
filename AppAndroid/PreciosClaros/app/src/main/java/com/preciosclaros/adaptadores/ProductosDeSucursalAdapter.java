@@ -1,5 +1,6 @@
 package com.preciosclaros.adaptadores;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.preciosclaros.MisListas;
+import com.preciosclaros.MostrarLista;
 import com.preciosclaros.R;
 import com.preciosclaros.modelo.Lista;
 import com.preciosclaros.modelo.Productos;
@@ -26,8 +29,9 @@ import butterknife.ButterKnife;
 public class ProductosDeSucursalAdapter extends RecyclerView.Adapter<ProductosDeSucursalAdapter.ViewHolder> {
 
     private List<Productos> productos = new ArrayList<Productos>();
-
-    public ProductosDeSucursalAdapter(List<Productos> productos) {
+    private Context mContext;
+    public ProductosDeSucursalAdapter(List<Productos> productos,Context context) {
+        this.mContext = context;
         this.productos = productos;
     }
 
@@ -49,10 +53,28 @@ public class ProductosDeSucursalAdapter extends RecyclerView.Adapter<ProductosDe
         Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/productos/"+lista.getProducto().getId()+".jpg")
                 .placeholder(R.drawable.image_placeholder).error(R.drawable.no_image_aivalable).into(holder.imgProducto);
         holder.descripcionProducto.setText(lista.getProducto().getNombre());
-        String cant = String.valueOf(this.productos.get(position).getCantidad());
+        final String cant = String.valueOf(this.productos.get(position).getCantidad());
         holder.cantidad.setText(cant);
+        holder.cantidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContext instanceof MostrarLista){
+
+                    ((MostrarLista)mContext).showPopup(cant,lista.getProducto().getId());
+                }
+            }
+        });
         String precio = String.valueOf(this.productos.get(position).getPrecioOptimo());
         holder.precioProducto.setText("$"+precio);
+        holder.borrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContext instanceof MostrarLista){
+
+                    ((MostrarLista)mContext).showPopupEliminarProducto(lista.getProducto().getId());
+                }
+            }
+        });
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,7 +87,7 @@ public class ProductosDeSucursalAdapter extends RecyclerView.Adapter<ProductosDe
         @BindView(R.id.descripcionProductoMiLista) TextView descripcionProducto;
         @BindView(R.id.cantidadProductoMiLista) TextView cantidad;
         @BindView(R.id.gastadoProductoMiLista)TextView gastado;
-
+        @BindView(R.id.borrarProductoMiLista) ImageView borrar;
         public ViewHolder(View itemView) {
             super(itemView);
             this.item = itemView;

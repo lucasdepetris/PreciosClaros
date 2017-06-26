@@ -31,14 +31,24 @@ public interface ApiPrecios {
     @GET("Listas/ObtenerLista")
     Call<Lista> getLista(@Query ("idLista") int id );
     @POST("Listas/CrearLista")
+    //se puede mejorar
     Call<Listas> putLista(@Query ("idUsuario") int id, @Query("nombre") String nombre, @Query("descripcion") String descripcion);
+    @GET("Listas/ModificarLista")
+    Call<ArrayList<Listas>> modificarLista(@Query ("idLista") int idLista ,@Query("nombre") String nombre, @Query("descripcion") String descripcion, @Query("idUsuario") int idUsuario );
+    @GET("Listas/EliminarLista")
+    Call<ArrayList<Listas>> eliminarLista(@Query ("idLista") int idLista , @Query("idUsuario") int idUsuario );
+    @GET("Listas/ModificarCantidadDeUnProducto")
+    Call<Lista> modificarCantidad(@Query("idLista") int idLista, @Query("idArticulo") String idArticulo, @Query("cantidad") int cantidad);
     @POST("Usuarios/ObtenerUsuarioPorIdGoogle")
     Call<Usuario> getUsuario(@Query("idGoogle") String id);
     @POST("Usuarios/Login")
     Call<Usuario> loginUsuario(@Body Usuario user);
     @POST("Listas/AgregarProducto")
+    //se puede mejorar
     Call<Listas> AgregarProducto(@Query ("idLista") int id, @Query("idArticulo") String idArticulo, @Query("cantidad") int cantidad,
                                  @Query("precioOptimo") int preciOptimo, @Query("idComercio") String idComercio);
+    @GET("Listas/EliminarProducto")
+    Call<Lista> EliminarProducto( @Query("idArticulo") String idArticulo,@Query ("idLista") int idLista);
     @GET("items/{itemId}")
     Call<Article> getArticle(@Path("itemId") String id );
 }
