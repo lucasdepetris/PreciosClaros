@@ -286,7 +286,8 @@ public class MisListas extends AppCompatActivity {
                 }
 
             });
-
+        pw.dismiss();
         }
     };
+
 }

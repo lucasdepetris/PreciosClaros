@@ -48,6 +48,7 @@ public class MostrarLista extends AppCompatActivity {
     private EditText cantidad ;
     private String idArticulo;
     private int id;
+    private int CantidadAnt;
     //@OnClick(R.id.cantidadProductoMiLista)public void cambiarCantidad() {showPopup();}
     @BindView(R.id.ReciclerContenidoLista) RecyclerView recicler;
     public Call<Lista> requestCatalog;
@@ -111,6 +112,7 @@ public class MostrarLista extends AppCompatActivity {
     public void showPopup(String cantidadAnt, String idArticulo){
         try {
 // We need to get the instance of the LayoutInflater
+            this.idArticulo = idArticulo;
             LayoutInflater inflater = getLayoutInflater();
             getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.modificar_cantidad_producto,
@@ -118,7 +120,6 @@ public class MostrarLista extends AppCompatActivity {
             pw = new PopupWindow(layout, 900,500, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             cantidad = (EditText) layout.findViewById(R.id.Cantidad);
-            cantidad.setText(cantidadAnt);
             Close = (Button) layout.findViewById(R.id.btnCerrarCantidad);
             Close.setOnClickListener(cancel_button);
             Aceptar = (Button) layout.findViewById(R.id.btnModificarCantidad);
