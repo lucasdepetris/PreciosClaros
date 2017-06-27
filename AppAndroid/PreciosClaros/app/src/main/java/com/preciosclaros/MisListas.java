@@ -73,6 +73,7 @@ public class MisListas extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
                 if (response.isSuccessful()) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     ArrayList<Listas> listas = response.body();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);
                     recyclerView.setLayoutManager(linearLayoutManager);

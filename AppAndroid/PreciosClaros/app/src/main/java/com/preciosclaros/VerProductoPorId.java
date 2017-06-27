@@ -134,6 +134,7 @@ public class VerProductoPorId extends AppCompatActivity {
             @Override
             public void onResponse(Call<com.preciosclaros.modelo.Response> call, retrofit2.Response<Response> response) {
                 if (response.isSuccessful()) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Producto received = response.body().getProducto();
                     mejorProducto = received;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg")

@@ -187,6 +187,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onResponse(Call<com.preciosclaros.modelo.Response> call, Response<com.preciosclaros.modelo.Response> response) {
                 if (response.isSuccessful()) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Producto received = response.body().getProducto();
                     mejorProducto = received;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg")

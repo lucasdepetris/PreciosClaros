@@ -76,6 +76,7 @@ public class MostrarLista extends AppCompatActivity {
             @Override
             public void onResponse(Call<Lista> call, retrofit2.Response<Lista> response) {
                 if (response.isSuccessful()) {
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Lista lista = response.body();
                     ArrayList<Items> items = lista.getItems();
                     TextView txt = (TextView) findViewById(R.id.VerNombreLista);
