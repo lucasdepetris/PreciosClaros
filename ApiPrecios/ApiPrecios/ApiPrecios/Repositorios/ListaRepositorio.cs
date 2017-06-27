@@ -80,7 +80,14 @@ namespace ApiPrecios.Repositorios
         public bool EliminarLista(int idLista)
         {
             DBPrecios db = new DBPrecios();
-            var lista = db.Listas.Where(l => l.id == idLista).First();
+            var lista = db.Listas.Find(idLista);
+            foreach(var l in lista.ListaArticuloes)
+            {
+                db.ListaArticuloes.Remove(l);
+            }
+
+            lista.Usuarios.Clear();
+
             db.Listas.Remove(lista);
             db.SaveChanges();
             return true;
@@ -88,8 +95,9 @@ namespace ApiPrecios.Repositorios
         public bool EliminarProducto(String idArticulo, int idLista)
         {
             DBPrecios db = new DBPrecios();
-            var producto = db.ListaArticuloes.Where(l => l.idArticulo == idArticulo && l.idLista == idLista ).First();
+            var producto = db.ListaArticuloes.Where(l => l.idArticulo == idArticulo && l.idLista == idLista ).FirstOrDefault();
             db.ListaArticuloes.Remove(producto);
+            db.SaveChanges();
             return true;
         }
     }

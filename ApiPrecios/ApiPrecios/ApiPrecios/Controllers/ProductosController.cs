@@ -26,9 +26,22 @@ namespace ApiPrecios.Controllers
         [HttpGet]
         public ContentResult BuscarProductos(string buscar, double lat, double lng)
         {
-            var prod = productosServices.BuscarProductos(buscar, lat, lng);
+            try
+            {
+                var prod = productosServices.BuscarProductos(buscar, lat, lng);
 
-            return Content(getResponse(prod), "application/json");
+                return Content(getResponse(prod), "application/json");
+            }
+            catch (Exception ex)
+            {
+                //La ide aca seria manejar algun mensaje de error si algo fallo,
+                //Tecnicamente esta mal poner el try Catch en el controller porque es como muy arriba
+                //Pero bueno, no tenemos tiempo para hacerlo de otra forma, la idea es que si falla algo
+                //Lo detecte y se logee en la base de datos, en una tabla excepciones
+                //Entonces podemos ver que errores suceden y que no reviente todo por los aires
+                return Content("{error: " + ex.Message + "}", "application/json");
+            }
+
         }
 
         private string getResponse(object result)

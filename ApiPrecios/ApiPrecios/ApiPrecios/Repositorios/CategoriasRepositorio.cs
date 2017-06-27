@@ -17,7 +17,7 @@ namespace ApiPrecios.Repositorios
             string[] buscarSplit = buscar.Split(' ');
             var categorias = (from c in db.Categorias
                               where c.nombre.ToLower().Contains(buscar)
-                              select c).ToList().First();
+                              select c).ToList().FirstOrDefault();
             if(categorias != null)
             return new List<Categoria> { categorias }.Distinct().ToList();
 
