@@ -51,6 +51,8 @@ public class MostrarLista extends AppCompatActivity {
     private int CantidadAnt;
     //@OnClick(R.id.cantidadProductoMiLista)public void cambiarCantidad() {showPopup();}
     @BindView(R.id.ReciclerContenidoLista) RecyclerView recicler;
+    @BindView(R.id.VerNombreLista)TextView txt;
+    @BindView(R.id.VerDescripcionLista)TextView txt2;
     public Call<Lista> requestCatalog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,6 @@ public class MostrarLista extends AppCompatActivity {
         Intent intent = getIntent();
         int i = 0;
         id = intent.getIntExtra("idLista",i);
-        Toast.makeText(this,"hola"+id,Toast.LENGTH_SHORT).show();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -79,8 +80,6 @@ public class MostrarLista extends AppCompatActivity {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Lista lista = response.body();
                     ArrayList<Items> items = lista.getItems();
-                    TextView txt = (TextView) findViewById(R.id.VerNombreLista);
-                    TextView txt2 = (TextView) findViewById(R.id.VerDescripcionLista);
                     txt.setText(lista.getNombre());
                     txt2.setText(lista.getDescripcion());
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);
@@ -145,8 +144,6 @@ public class MostrarLista extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Lista lista = response.body();
                         ArrayList<Items> items = lista.getItems();
-                        TextView txt = (TextView) findViewById(R.id.VerNombreLista);
-                        TextView txt2 = (TextView) findViewById(R.id.VerDescripcionLista);
                         txt.setText(lista.getNombre());
                         txt2.setText(lista.getDescripcion());
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);
@@ -212,8 +209,6 @@ public class MostrarLista extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Lista lista = response.body();
                         ArrayList<Items> items = lista.getItems();
-                        TextView txt = (TextView) findViewById(R.id.VerNombreLista);
-                        TextView txt2 = (TextView) findViewById(R.id.VerDescripcionLista);
                         txt.setText(lista.getNombre());
                         txt2.setText(lista.getDescripcion());
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ctx);

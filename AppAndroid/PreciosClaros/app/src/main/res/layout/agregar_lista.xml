@@ -3,20 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/agregar_popup"
-    android:background="@color/primary"
+    android:background="#BDBDBD"
     android:paddingTop="40dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp">
 
     <EditText
         android:layout_marginBottom="20dp"
-        android:textColorHint="@color/md_red_800"
         android:background="@color/white"
         android:id="@+id/NombreListaNueva"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Nombre"
+        android:hint="Nombre"
         android:textAlignment="center" />
     <EditText
         android:layout_marginBottom="20dp"
@@ -24,7 +23,7 @@
         android:inputType="text"
         android:id="@+id/DescripcionListaNueva"
         android:textAlignment="center"
-        android:text="descripcion"
+        android:hint="Descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

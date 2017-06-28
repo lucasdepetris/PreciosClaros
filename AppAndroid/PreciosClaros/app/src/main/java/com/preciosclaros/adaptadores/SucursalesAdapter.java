@@ -111,7 +111,6 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         holder.agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"hola"+sucursal.getBanderaDescripcion(), Toast.LENGTH_LONG).show();
                 if(mContext instanceof BarCode){
 
                     ((BarCode)mContext).showPopupAdaptador(sucursal);

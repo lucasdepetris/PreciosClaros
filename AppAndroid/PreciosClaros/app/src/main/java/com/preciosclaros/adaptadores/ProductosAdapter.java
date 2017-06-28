@@ -51,7 +51,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
     @Override
     public void onBindViewHolder(ProductosAdapter.ViewHolder holder, int position) {
         final Producto producto = this.productos.get(position);
-        holder.precioProducto.setText("$"+"precio");
+        //holder.precioProducto.setText("$"+"precio");
         holder.descripcionProducto.setText(producto.getNombre());
         Picasso.with(holder.imgProducto.getContext()).load("https://imagenes.preciosclaros.gob.ar/productos/"+producto.getId()+".jpg")
                 .placeholder(R.drawable.image_placeholder).error(R.drawable.no_image_aivalable).into(holder.imgProducto);

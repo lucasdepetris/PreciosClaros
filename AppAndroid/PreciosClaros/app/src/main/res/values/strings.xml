@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maprecios</string>
+    <string name="app_name">MAPrecios</string>
     <string name="title_activity_home">HomeActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -10,4 +10,5 @@
     <string name="Precio">Precio</string>
     <string name="Gastado">Gastado</string>
     <string name="Eliminar">¿Estas seguro que deseas eliminarlo?</string>
+    <string name="NotFound">Lo sentimos, no se han encontrado resultados.</string>
 </resources>

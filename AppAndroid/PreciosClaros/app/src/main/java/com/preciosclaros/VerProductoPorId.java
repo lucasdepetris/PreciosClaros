@@ -286,20 +286,25 @@ public class VerProductoPorId extends AppCompatActivity {
             View layout = inflater.inflate(R.layout.agregar_producto,
                     (ViewGroup) findViewById(R.id.agregar_prod));
 
-            sharedPreferences = getApplicationContext().getSharedPreferences("Reg", 0);
             int idUser = 0;
-            requestListas = service.getListas(sharedPreferences.getInt("id",idUser));
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                    .baseUrl("http://maprecios.azurewebsites.net/")
+                    .build();
+            service = retrofit.create(ApiPrecios.class);
+            sharedPreferences = getApplicationContext().getSharedPreferences("Reg", Context.MODE_PRIVATE);
+            int idu = sharedPreferences.getInt("id",idUser);
+            requestListas = service.getListas(idu);
             requestListas.enqueue(new Callback<ArrayList<Listas>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Listas>> call, retrofit2.Response<ArrayList<Listas>> response) {
                     if (response.isSuccessful()) {
                         ArrayList<Listas> listas = response.body();
                         ls = listas;
-                  /*  int i =0;
-                    for (Listas Nombre :listas) {
-                        select[i] = Nombre.getNombre();
-                        i++;
-                    }*/
                         Log.i(TAG, "Artículo descargado: ");
                     } else {
                         int code = response.code();
@@ -316,7 +321,7 @@ public class VerProductoPorId extends AppCompatActivity {
                 }
 
             });
-            String[] valores ={ls.get(0).getNombre(),ls.get(1).getNombre()};
+            String[] valores = {ls.get(0).getNombre(),ls.get(1).getNombre()};
             spinner = (Spinner) layout.findViewById(R.id.select);
             spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -324,7 +329,7 @@ public class VerProductoPorId extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
                 {
-                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -397,7 +402,7 @@ public class VerProductoPorId extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
                 {
-                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override

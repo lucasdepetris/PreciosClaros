@@ -58,6 +58,7 @@ public class BuscarProductos extends AppCompatActivity {
     EditText buscar;
     @OnClick(R.id.BuscarProductosBtn)public void buscar(){
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+        findViewById(R.id.iconBuscar).setVisibility(View.GONE);
         buscarProducto(buscar.getText().toString());
     }
     @Override

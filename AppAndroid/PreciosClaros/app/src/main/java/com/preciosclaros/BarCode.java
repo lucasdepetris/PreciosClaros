@@ -141,7 +141,8 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
         if (result != null) {
             //if qrcode has nothing in it
             if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(BarCode.this,NoResultFound.class);
+                startActivity(intent);
             } else {
                 //if qr contains data
                 buscarProducto(result.getContents());
@@ -210,6 +211,8 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     int code = response.code();
                     String c = String.valueOf(code);
+                    Intent intent = new Intent(BarCode.this,NoResultFound.class);
+                    startActivity(intent);
                 }
 
 
@@ -346,7 +349,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
                 {
-                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -420,7 +423,7 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
                 {
-                    Toast.makeText(adapterView.getContext(), (String) adapterView.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -481,4 +484,9 @@ public class BarCode extends AppCompatActivity implements View.OnClickListener {
 
         }
     };
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(BarCode.this,HomeActivity.class);
+        startActivity(intent);
+    }
 }

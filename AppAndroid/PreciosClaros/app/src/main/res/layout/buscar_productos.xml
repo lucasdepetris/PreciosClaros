@@ -10,6 +10,11 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:maxLength="30"
+            android:maxHeight="30dp"
+            android:textStyle="italic"
+            android:hint="Escribe Nombre o Categoria"
+            android:textCursorDrawable="@color/primary"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
             android:gravity="center"
@@ -28,12 +33,22 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/iconBuscar"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/ic_find_in_page_black_48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
         android:visibility="gone"
         android:id="@+id/loadingPanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center" >
-
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
