@@ -41,7 +41,7 @@ public class ListasAdaptador extends RecyclerView.Adapter<ListasAdaptador.ViewHo
     }
 
     @Override
-    public ListasAdaptador.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.mi_lista, null);
 
         return new ListasAdaptador.ViewHolder(itemLayoutView);

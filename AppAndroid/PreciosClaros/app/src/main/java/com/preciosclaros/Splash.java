@@ -20,12 +20,12 @@ public class Splash extends AppCompatActivity {
         super.onCreate(icicle);
         setContentView(R.layout.splash);
 
-        /* New Handler to start the Menu-Activity
+        /* New Handler to start the
          * and close this Splash-Screen after some seconds.*/
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
+                /* Create an Intent that will start the. */
                 Intent mainIntent = new Intent(Splash.this,SignInActivity.class);
                 Splash.this.startActivity(mainIntent);
                 Splash.this.finish();

@@ -3,38 +3,71 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent" android:layout_height="fill_parent"
-        android:gravity="center_vertical">
+        android:background="@drawable/mapa_fondo"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_weight="0.2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="40dp"
+                android:src="@drawable/logo_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/md_black_1000"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="MAPRECIOS"
+                android:textSize="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    <LinearLayout
+        android:paddingBottom="50dp"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageButton
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/boton1"
             android:id="@+id/listas"
-            android:maxWidth="260dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:maxWidth="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/mis_listas" />
+
         <ImageButton
-            android:layout_marginBottom="20dp"
-            android:maxWidth="260dp"
+            android:layout_marginRight="15dp"
+            android:maxWidth="100dp"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/boton2"
+            android:src="@drawable/escanear"
             android:id="@+id/escanear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageButton
-            android:maxWidth="260dp"
+            android:maxWidth="100dp"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/boton3"
+            android:src="@drawable/buscar_prod"
             android:id="@+id/buscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     </LinearLayout>

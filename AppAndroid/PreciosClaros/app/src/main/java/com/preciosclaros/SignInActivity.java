@@ -250,6 +250,7 @@ public class SignInActivity extends AppCompatActivity implements
     }
     private void updateUI(boolean signedIn) {
         if (signedIn) {
+            finishActivity(0);
             Toast.makeText(this,"Inicio de sesion correcto",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
             startActivity(intent);

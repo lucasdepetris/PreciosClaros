@@ -24,6 +24,7 @@ import com.preciosclaros.BarCode;
 import com.preciosclaros.R;
 import com.preciosclaros.VerProductoPorId;
 import com.preciosclaros.modelo.Sucursales;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -107,16 +108,14 @@ public class SucursalesAdapter extends RecyclerView.Adapter<SucursalesAdapter.Vi
         holder.precio.setText("$"+sucursal.getPreciosProducto().getPrecioLista());
         holder.localidad.setText(sucursal.getLocalidad());
         Picasso.with(holder.imgComercio.getContext()).load("https://imagenes.preciosclaros.gob.ar/comercios/"+sucursal.getComercioId()+"-"+sucursal.getBanderaId()+".jpg")
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .placeholder(R.drawable.image_placeholder)
                 .error(R.drawable.no_image_aivalable)
                 .into(holder.imgComercio);
         holder.agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mContext instanceof BarCode){
 
-                    ((BarCode)mContext).showPopupAdaptador(sucursal);
-                }
                 if(mContext instanceof VerProductoPorId){
 
                     ((VerProductoPorId)mContext).showPopupAdaptador(sucursal);

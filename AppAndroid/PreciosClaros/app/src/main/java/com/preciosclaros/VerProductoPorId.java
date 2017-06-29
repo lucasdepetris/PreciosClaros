@@ -128,7 +128,7 @@ public class VerProductoPorId extends AppCompatActivity {
         if(sharedPreferences.contains("Lat")){
             lati = Double.parseDouble(sharedPreferences.getString("Lat",""));
             lng = Double.parseDouble(sharedPreferences.getString("Longitude",""));
-        }else {lati = 0.0; lng = 0.0;}
+        }else {lati = -34.666227; lng = -58.589724;}
         //OBTENER UBICACION
         requestCatalog = service.getProducto(codigo, lati, lng);
         requestCatalog.enqueue(new Callback<com.preciosclaros.modelo.Response>() {
@@ -137,6 +137,12 @@ public class VerProductoPorId extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Producto received = response.body().getProducto();
+                  /*  if(response.body().getMejorPrecio() == null){
+                        VerProductoPorId.this.finish();
+                        Intent intent = new Intent(VerProductoPorId.this,NoResultFound.class);
+                        intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                    }*/
                     mejorProducto = received;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg")
                             .placeholder(R.drawable.image_placeholder)
@@ -157,6 +163,7 @@ public class VerProductoPorId extends AppCompatActivity {
                     Log.i(TAG, "Artículo descargado: ");
                 } else {
                     Intent intent = new Intent(VerProductoPorId.this,NoResultFound.class);
+                    intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                     int code = response.code();
                     String c = String.valueOf(code);

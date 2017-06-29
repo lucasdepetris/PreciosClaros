@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.preciosclaros.BuscarProductos;
 import com.preciosclaros.HomeActivity;
 import com.preciosclaros.MisListas;
+import com.preciosclaros.MostrarLista;
 import com.preciosclaros.VerProductoPorId;
 import com.preciosclaros.modelo.Producto;
 import com.preciosclaros.R;
@@ -67,6 +68,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(context, VerProductoPorId.class);
+               intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
                intent.putExtra("idProducto",producto.getId());
                context.startActivity(intent);
            }

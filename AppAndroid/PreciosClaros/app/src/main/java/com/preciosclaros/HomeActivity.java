@@ -48,43 +48,26 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity  {
-    /*@OnClick({ R.id.listas, R.id.escanear, R.id.buscar })
-    public void SelectOptionHome(ImageButton btn){
-        Fragment fragment = new Fragment();
-        switch (btn.getId()){
-            case R.id.listas:
-                fragment = new Menu1();
-                break;
-            case R.id.escanear:
-                fragment = new Menu2();
-                break;
-        }
-    }*/
+
    @OnClick({R.id.listas ,R.id.escanear, R.id.buscar}) public void elejirOpcion(ImageButton btn){
         switch (btn.getId()){
-            case R.id.listas:  Intent intent = new Intent(HomeActivity.this,MisListas.class);
+            case R.id.listas:
+                                Intent intent = new Intent(HomeActivity.this,MisListas.class);
+                                intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
             break;
-            case R.id.escanear: Intent intent2 = new Intent(HomeActivity.this,BarCode.class);
+            case R.id.escanear:
+                                Intent intent2 = new Intent(HomeActivity.this,BarCode.class);
+                                intent2.setFlags(intent2.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent2);
             break;
-            case R.id.buscar:   Intent intent3 = new Intent(HomeActivity.this,BuscarProductos.class);
+            case R.id.buscar:
+                                Intent intent3 = new Intent(HomeActivity.this,BuscarProductos.class);
+                                intent3.setFlags(intent3.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent3);
             break;
         }
     }
-    Button Close;
-    Button Create;
-    LayoutInflater layoutInflater;
-    View popupView;
-    PopupWindow popupWindow;
-
-    private PopupWindow pw;
-    private GoogleApiClient mGoogleApiClient;
-    private static final String PREFER_NAME = "Reg";
-    private SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,115 +75,12 @@ public class HomeActivity extends AppCompatActivity  {
         setContentView(R.layout.home);
         ButterKnife.bind(this);
 
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        displaySelectedScreen(R.id.nav_home);*/
-
     }
-    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
 
            moveTaskToBack(true);
         }
-    //}
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.salir) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        //calling the method displayselectedscreen and passing the id of selected menu
-        displaySelectedScreen(item.getItemId());
-        //make this method blank
-        return true;
-    }
-    private void displaySelectedScreen(int itemId) {
-
-        //creating fragment object
-        Fragment fragment = null;
-
-        //initializing the fragment object which is selected
-        switch (itemId) {
-            case R.id.nav_home:
-                fragment = new Home();
-                break;
-            case R.id.nav_menu1:
-                fragment = new Menu1();
-                /*Toast.makeText(this,"hola soy menu 1",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(HomeActivity.this,BarCode.class);
-                startActivity(intent);*/
-             /*   break;
-            case R.id.nav_menu2:
-                /*fragment = new Menu2();*/
-               /* Intent intent = new Intent(HomeActivity.this,BarCode.class);
-                startActivity(intent);
-                break;
-           /* case R.id.nav_menu3:
-                fragment = new Menu3();
-                break;
-        }
-
-        //replacing the fragment
-        if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
-            ft.addToBackStack(null);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
-    //Getting the scan results
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            //if qrcode has nothing in it
-            if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            } else {
-                //if qr contains data
-                //in this case you can display whatever data is available on the qrcode
-                //to a toast
-                TextView textViewName = (TextView) findViewById(R.id.textViewName);
-                textViewName.setText(result.getContents());
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }*/
 }
 
