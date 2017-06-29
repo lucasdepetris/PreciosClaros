@@ -137,12 +137,12 @@ public class VerProductoPorId extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     Producto received = response.body().getProducto();
-                  /*  if(response.body().getMejorPrecio() == null){
+                    if(response.body().getMejorPrecio() == null){
                         VerProductoPorId.this.finish();
                         Intent intent = new Intent(VerProductoPorId.this,NoResultFound.class);
                         intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                    }*/
+                    }
                     mejorProducto = received;
                     Picasso.with(context).load("https://imagenes.preciosclaros.gob.ar/productos/"+codigo+".jpg")
                             .placeholder(R.drawable.image_placeholder)

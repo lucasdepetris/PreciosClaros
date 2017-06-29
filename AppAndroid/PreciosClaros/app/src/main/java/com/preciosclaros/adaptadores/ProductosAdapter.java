@@ -34,6 +34,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.View
 
     private List<Producto> productos = new ArrayList<Producto>();
     private Context context;
+    private String status;
     public ProductosAdapter(List<Producto> productos) {
         this.productos = productos;
     }
