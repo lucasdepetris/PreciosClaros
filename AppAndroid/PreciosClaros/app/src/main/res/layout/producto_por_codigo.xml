@@ -26,6 +26,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="10dp"/>
         <TextView
+            android:layout_marginTop="10dp"
             android:text="Gaseosa Coca Cola x 1.5 Lt"
             android:layout_toRightOf="@id/MejorImgProducto"
             android:id="@+id/MejorNombre"

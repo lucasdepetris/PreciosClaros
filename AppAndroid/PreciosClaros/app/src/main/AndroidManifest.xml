@@ -21,21 +21,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity">
+        <activity android:name=".Splash" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MostrarLista"></activity>
-        <activity android:name=".VerProductoPorId"></activity>
-        <activity android:name=".BuscarProductos"></activity>
-        <activity android:name=".MisListas"></activity>
-        <activity android:name=".BarCode"></activity>
-        <activity android:name=".NoResultFound"></activity>
+        <activity android:name=".SignInActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MostrarLista" android:screenOrientation="portrait"></activity>
+        <activity android:name=".VerProductoPorId" android:screenOrientation="portrait"></activity>
+        <activity android:name=".BuscarProductos" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MisListas" android:screenOrientation="portrait"></activity>
+        <activity android:name=".BarCode" android:screenOrientation="portrait"></activity>
+        <activity android:name=".NoResultFound" android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".HomeActivity"></activity>
+            android:name=".HomeActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

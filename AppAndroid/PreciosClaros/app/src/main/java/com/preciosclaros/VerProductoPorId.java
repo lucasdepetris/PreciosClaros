@@ -27,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -155,6 +156,8 @@ public class VerProductoPorId extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
                     Log.i(TAG, "Artículo descargado: ");
                 } else {
+                    Intent intent = new Intent(VerProductoPorId.this,NoResultFound.class);
+                    startActivity(intent);
                     int code = response.code();
                     String c = String.valueOf(code);
                 }
