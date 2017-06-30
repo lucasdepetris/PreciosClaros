@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/mod_cant"
-    android:background="#BDBDBD"
+    android:background="@drawable/popup"
     android:paddingTop="40dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp">
@@ -23,12 +23,17 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnModificarCantidad"
-            android:text="Agregar"
+            android:text="MODIFICAR"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnCerrarCantidad"
             android:text="Cancelar"
             android:layout_weight="1"

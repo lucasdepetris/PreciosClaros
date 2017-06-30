@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_no_result"
     android:weightSum="1">
     <LinearLayout
         android:gravity="center"
@@ -9,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@drawable/ic_error_outline_black_48dp"
+
+            android:src="@drawable/carro_triste"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -21,7 +23,7 @@
             <TextView
                 android:textSize="20dp"
                 android:text="@string/NotFound"
-                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -32,18 +34,27 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
+            <ImageButton
                 android:id="@+id/backHome"
-                android:text="Home"
-                android:layout_weight="0.4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/buscarNuevamente"
-                android:text="Buscar"
-                android:layout_weight="0.4"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="60dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="100dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/boton_home" />
+            <ImageButton
+                android:src="@drawable/search"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:maxWidth="100dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/buscarNuevamente" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

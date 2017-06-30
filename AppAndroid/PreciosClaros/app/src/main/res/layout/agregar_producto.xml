@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/agregar_prod"
-    android:background="#BDBDBD"
+    android:background="@drawable/popup"
     android:paddingTop="40dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp">
@@ -33,12 +33,17 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnAgregarProducto"
             android:text="Agregar"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnCerrarProducto"
             android:text="Cancelar"
             android:layout_weight="1"

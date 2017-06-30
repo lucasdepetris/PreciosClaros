@@ -3,12 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/eliminar_item"
-    android:background="#BDBDBD"
+    android:background="@drawable/popup"
     android:paddingTop="40dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp">
 
    <TextView
+       android:textColor="@color/white"
        android:text="@string/Eliminar"
        android:textAlignment="center"
        android:id="@+id/alertaEliminar"
@@ -16,18 +17,24 @@
        android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:weightSum="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnEliminar"
             android:text="SI"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Button
+            android:textColor="@color/white"
+            android:background="@drawable/btn_popup"
             android:id="@+id/btnCerrarEliminar"
             android:text="NO"
             android:layout_weight="1"

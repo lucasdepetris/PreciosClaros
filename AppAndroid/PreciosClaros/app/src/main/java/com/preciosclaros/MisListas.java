@@ -105,7 +105,7 @@ public class MisListas extends AppCompatActivity {
             getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.agregar_lista,
                     (ViewGroup) findViewById(R.id.agregar_popup));
-            pw = new PopupWindow(layout, 900,500, true);
+            pw = new PopupWindow(layout, 900,600, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             nombre = (EditText) layout.findViewById(R.id.NombreListaNueva);
             descripcion = (EditText) layout.findViewById(R.id.DescripcionListaNueva);
@@ -182,13 +182,14 @@ public class MisListas extends AppCompatActivity {
             getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.agregar_lista,
                     (ViewGroup) findViewById(R.id.agregar_popup));
-            pw = new PopupWindow(layout, 900,500, true);
+            pw = new PopupWindow(layout, 900,600, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             nombre = (EditText) layout.findViewById(R.id.NombreListaNueva);
             descripcion = (EditText) layout.findViewById(R.id.DescripcionListaNueva);
             Close = (Button) layout.findViewById(R.id.btnCerrarPopup);
             Close.setOnClickListener(cancel_button_editar);
             CrearLista = (Button) layout.findViewById(R.id.btnAgregarLista);
+            CrearLista.setText("MODIFICAR");
             CrearLista.setOnClickListener(crear_lista_editar);
         } catch (Exception e) {
             e.printStackTrace();

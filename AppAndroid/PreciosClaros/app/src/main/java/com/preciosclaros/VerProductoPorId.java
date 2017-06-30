@@ -349,7 +349,7 @@ public class VerProductoPorId extends AppCompatActivity {
 
                 }
             });
-            pw = new PopupWindow(layout, 900,500, true);
+            pw = new PopupWindow(layout, 900,600, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             cantidad = (EditText) layout.findViewById(R.id.Cantidad);
             Close = (Button) layout.findViewById(R.id.btnCerrarProducto);
@@ -423,7 +423,7 @@ public class VerProductoPorId extends AppCompatActivity {
                 }
             });
             sucursalElegida = sucursal;
-            pw = new PopupWindow(layout, 900,500, true);
+            pw = new PopupWindow(layout, 900,600, true);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
             cantidad = (EditText) layout.findViewById(R.id.Cantidad);
             Close = (Button) layout.findViewById(R.id.btnCerrarProducto);
